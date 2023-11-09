@@ -16,7 +16,7 @@ function App() {
       </nav>
       <Routes>
         <Route path={"/"} element={<HomePage />} />
-        <Route path={"/:gameId"} element={<TicketGame />} />
+        <Route path={"/ticket"} element={<TicketGame />} />
         <Route path={"/"} element={<SingleTicket />} />
         <Route path={"/cart"} element={<Cart />} />
         <Route path={"/"} element={<Checkout />} />
