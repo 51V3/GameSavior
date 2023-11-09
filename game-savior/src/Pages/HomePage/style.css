@@ -1,0 +1,19 @@
+
+
+.btn-container {
+    position: relative;
+    display: inline-block;
+}
+
+.btn-container img {
+max-width: 100%;
+height: auto;
+vertical-align: middle;
+}
+
+.btn p {
+position: absolute;
+left: 50%;
+transform: translateX(-50%);
+bottom: 0;
+}
