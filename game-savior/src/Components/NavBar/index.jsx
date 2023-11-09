@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
-import Style from "./style.css"
+import "./style.css"
 import React from "react";
-import Logo from "../assets/Images/GameSavior.png"
-import cart from "../assets/Images/output-onlinepngtools.png"
+import { ReactComponent as logo } from "../../assets/Images/GameSavior.svg";
+import { ReactComponent as cart } from "../../assets/Images/cart-logo.svg";
 
-export default function Navbar(){
+export default function NavBar(){
     return(
         <div className="navbar">
         <div className="left-section">
           <Link to="/" className="link">
-            <img src={Logo} alt="Logo" />
+            <img src={logo} alt="logo" className="logo"/>
           </Link>
         </div>
       
@@ -21,7 +21,7 @@ export default function Navbar(){
       
         <div className="right-section">
           <Link to="/cart" className="link">
-            <img src={cart} alt="Cart" />
+            <img src={cart} alt="Cart" className="cart-icon"/>
           </Link>
         </div>
       </div>

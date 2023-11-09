@@ -38,6 +38,21 @@
     text-shadow: 0 0 8px #ffffff;
     transform: scale(1.1);
   }
+
+  .links a img {
+    text-decoration: none;
+    color: #c4c4c4;
+    margin-left: 20px;
+    font-size: 18px;
+    transition: color 0.3s, transform 0.3s, text-shadow 0.3s;
+  }
+  
+  .links a:hover img {
+    filter: brightness(1.2);
+    color: #ffffff;
+    text-shadow: 0 0 8px #ffffff;
+    transform: scale(1.1);
+  }
   
   .logo {
     max-height: 50px;
@@ -45,7 +60,6 @@
   }
   
   .cart-icon {
-    max-height: 30px;
-    max-width: 30px;
+    max-height: 50px;
+    max-width: 50px;
   }
-  
