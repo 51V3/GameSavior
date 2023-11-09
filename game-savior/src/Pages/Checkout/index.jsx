@@ -1,4 +1,4 @@
-export default function SingleTicket(){
+export default function Checkout(){
     return(
         <div>
             

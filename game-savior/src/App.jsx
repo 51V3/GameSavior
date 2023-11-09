@@ -1,6 +1,11 @@
 import './App.css'
 import { Route, Routes } from 'react-router-dom'
 import NavBar from './Components/NavBar'
+import HomePage from './Pages/HomePage'
+import Checkout from './Pages/Checkout'
+import TicketGame from './Pages/TicketGame'
+import Cart from './Pages/CartPage'
+import SingleTicket from './Pages/SingleTicket'
 
 
 function App() {
@@ -9,13 +14,13 @@ function App() {
       <nav>
         <NavBar />
       </nav>
-      {/*<Routes>
+      <Routes>
         <Route path={"/"} element={<HomePage />} />
-        <Route path={"/:gameId"} element={<DisplayGame />} />
-        <Route path={"/"} element={<Ticket />} />
+        <Route path={"/:gameId"} element={<TicketGame />} />
+        <Route path={"/"} element={<SingleTicket />} />
         <Route path={"/cart"} element={<Cart />} />
         <Route path={"/"} element={<Checkout />} />
-      </Routes>*/}
+      </Routes>
     </div>
   )
 }
