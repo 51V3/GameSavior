@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "./Cart.css"; // Import your CSS file for the cart component
+import "./Cart.css";
 
 export default function Cart() {
   const [cart, setCart] = useState([]);
