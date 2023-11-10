@@ -1,6 +1,13 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+
 .sports-container {
     display: flex;
     justify-content: space-around;
+    background-color: #333;
+    position: relative;
 }
 
 .btn-container {
@@ -10,7 +17,7 @@
 .image-container {
     position: relative;
     width: 350px;
-    height: 200px; /* Adjust the height as needed */
+    height: 200px;
     overflow: hidden;
 }
 
@@ -20,12 +27,24 @@
     object-fit: cover;
 }
 
-.btn-container p {
+.text-overlay {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 80%;
+    left: 20%;
     transform: translate(-50%, -50%);
-    font-size: 50px; /* Adjust font size */
+    font-size: 30px; /* Adjust font size */
     font-weight: bold; /* Adjust font weight */
     text-align: left;
+    color: white;
+    background-color: transparent;
+    border-radius: 5px;
+    font-family: 'Arial', sans-serif;
+}
+
+.football-container {
+    position: relative;
+}
+
+.home-page {
+    background-color: #333;
 }

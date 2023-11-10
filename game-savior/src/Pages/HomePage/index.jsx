@@ -9,19 +9,19 @@ export default function HomePage(){
         <div className="home-page">
             <div className="sports-container">
                 <div className="football-container">
-                    <Link to={"/game"}>
+                    <Link to={"/ticket"}>
                         <div className="image-container">
                             <img src={footballImg} />
+                            <p className="text-overlay">Football</p>
                         </div>
-                        <p>Football</p>
                     </Link>
                 </div>
                 <div className="basketball-container">
                     <Link to={"/coming-soon"}>
                         <div className="image-container">
                             <img src={basketImg} />
+                            <p className="text-overlay">Basketball</p>
                         </div>
-                        <p>Basketball</p>
                     </Link>
                 </div>
             </div>
