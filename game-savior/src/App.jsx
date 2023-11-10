@@ -19,10 +19,10 @@ function App() {
         <Route path={"/ticket"} element={<TicketGame />} />
         <Route path={"/single-ticket"} element={<SingleTicket />} />
         <Route path={"/cart"} element={<Cart />} />
-        <Route path={"/"} element={<Checkout />} />
+        <Route path="/checkout" element={<Checkout cart={Cart} />} />
       </Routes>
     </div>
   )
 }
 
-export default App
+export default App;

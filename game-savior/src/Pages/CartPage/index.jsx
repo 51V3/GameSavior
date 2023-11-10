@@ -1,9 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Cart.css";
+import Checkout from "../Checkout/index.jsx";
 
 export default function Cart() {
-  const [cart, setCart] = useState([]);
+const [cart, setCart] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("api_endpoint"); // dar replace com a nossa api
+        const data = await response.json();
+        setCart(data);
+      } catch (error) {
+        console.error("Error fetching cart data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleQuantityChange = (id, newQuantity) => {
     const updatedCart = cart.map((ticket) =>
@@ -42,7 +57,7 @@ export default function Cart() {
         ))}
       </ul>
       <Link to="/checkout" className="checkout-link">
-        <button className="checkout-button">Checkout</button>
+        <Checkout cart={cart} />
       </Link>
     </div>
   );
