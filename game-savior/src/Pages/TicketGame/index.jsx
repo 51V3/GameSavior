@@ -7,11 +7,7 @@ const MatchesComponent = () => {
     
     async function fetchMatches() {
         try {
-          const response = await fetch('https://api.football-data.org/v4/matches', {
-            headers: {
-              'X-Auth-Token': '11476ea25dc240e3896d3c993c233c5f'
-            }
-          });
+          const response = await fetch('/api/matches');
           // Check if the response is ok (status in the range 200-299)
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
