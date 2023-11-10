@@ -8,15 +8,19 @@ export default function HomePage(){
     return(
         <div className="home-page">
             <div className="sports-container">
-                <div className="btn-container">
+                <div className="football-container">
                     <Link to={"/game"}>
-                        <img src={footballImg} />
+                        <div className="image-container">
+                            <img src={footballImg} />
+                        </div>
                         <p>Football</p>
                     </Link>
                 </div>
-                <div className="btn-container">
+                <div className="basketball-container">
                     <Link to={"/coming-soon"}>
-                        <img src={basketImg} />
+                        <div className="image-container">
+                            <img src={basketImg} />
+                        </div>
                         <p>Basketball</p>
                     </Link>
                 </div>

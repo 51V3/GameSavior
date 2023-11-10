@@ -1,18 +1,31 @@
-
+.sports-container {
+    display: flex;
+    justify-content: space-around;
+}
 
 .btn-container {
     position: relative;
-    display: inline-block;
 }
 
-.btn-container img {
-    max-width: 100%;
-    height: auto;
-    vertical-align: middle;
+.image-container {
+    position: relative;
+    width: 350px;
+    height: 200px; /* Adjust the height as needed */
+    overflow: hidden;
 }
 
-.btn p {
-    position: left;
-    transform: translateX(-50%);
-    bottom: 0;
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.btn-container p {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 50px; /* Adjust font size */
+    font-weight: bold; /* Adjust font weight */
+    text-align: left;
 }
