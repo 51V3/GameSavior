@@ -9,7 +9,7 @@ export default function HomePage(){
         <div className="home-page">
             <div className="sports-container">
                 <div className="football-container">
-                    <Link to={"/ticket"}>
+                    <Link to={"/match"}> 
                         <div className="image-container">
                             <img src={footballImg} />
                             <p className="text-overlay">Football</p>

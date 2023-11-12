@@ -16,8 +16,8 @@ function App() {
       </nav>
       <Routes>
         <Route path={"/"} element={<HomePage />} />
-        <Route path={"/ticket"} element={<TicketGame />} />
-        <Route path={"/single-ticket"} element={<SingleTicket />} />
+        <Route path={"/match"} element={<TicketGame />} />
+        <Route path={"/match/:id"} element={<SingleTicket />} />
         <Route path={"/cart"} element={<Cart />} />
         <Route path="/checkout" element={<Checkout cart={Cart} />} />
       </Routes>

@@ -1,12 +1,26 @@
 * {
     margin: 0;
     padding: 0;
-  }
+}
+
+html, body {
+    height: 100%;
+}
+
+.home-page {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
 
 .sports-container {
     display: flex;
     justify-content: space-around;
+    align-items: center; 
     background-color: #333;
+    min-height: 100%;
+    padding-top: 70px;
+    padding-bottom: 70px;
     position: relative;
 }
 
@@ -32,19 +46,11 @@
     top: 80%;
     left: 20%;
     transform: translate(-50%, -50%);
-    font-size: 30px; /* Adjust font size */
-    font-weight: bold; /* Adjust font weight */
+    font-size: 30px; 
+    font-weight: bold; 
     text-align: left;
     color: white;
     background-color: transparent;
     border-radius: 5px;
     font-family: 'Arial', sans-serif;
-}
-
-.football-container {
-    position: relative;
-}
-
-.home-page {
-    background-color: #333;
 }

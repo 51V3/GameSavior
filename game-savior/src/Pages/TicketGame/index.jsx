@@ -1,17 +1,35 @@
+// TicketGame.js
+
 import axios from "axios";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export default function TicketGame() {
-  axios.get('/api/matches')
-  .then((response) => {
-    console.log(response);
-  })
-  .catch((error) => {
-    console.error(error);
-  });
+  const [matches, setMatches] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get('/api/matches')
+      .then((response) => {
+        setMatches(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);  
 
   return (
     <div>
-      {/* Your component content */}
+      <h2>Matches</h2>
+      <ul>
+        {matches.map((match) => (
+          <li key={match.id}>
+            <Link to={`/match/${match.id}`}>
+              
+            </Link>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
