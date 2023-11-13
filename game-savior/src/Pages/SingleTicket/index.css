@@ -90,3 +90,7 @@ html, body {
     border: none;
     border-radius: 4px;
 }
+
+.add-button {
+    margin: 20px;
+}

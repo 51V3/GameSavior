@@ -2,12 +2,15 @@ import "./index.css";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useCart } from "../../Components/CartContext";
 
 export default function SingleTicket() {
   const [match, setMatch] = useState(null);
   const { id } = useParams();
   const [formattedDate, setFormattedDate] = useState('');
   const [ticketCount, setTicketCount] = useState(1);
+
+  const { cart, dispatch } = useCart() || {};
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,6 +45,21 @@ export default function SingleTicket() {
     }
   };
 
+  // Function to handle adding tickets to the cart
+  const handleAddToCart = () => {
+    const ticket = {
+      _id: match.id, // or use a unique identifier for the ticket
+      name: `${match.homeTeam.name} vs ${match.awayTeam.name} - ${formattedDate}`,
+      quantity: ticketCount,
+    };
+
+    // Dispatch an action to add the ticket to the cart
+    dispatch({ type: "ADD_TO_CART", payload: ticket });
+  };
+
+  console.log(ticketCount)
+
+
   return (
     <div>
       <h2 className="page-title">Game Details</h2>
@@ -73,6 +91,9 @@ export default function SingleTicket() {
             <p>Tickets: {ticketCount}</p>
             <button onClick={handleIncrement}>+</button>
             <button onClick={handleDecrement}>-</button>
+            <div className="add-button" >
+              <button onClick={handleAddToCart}>Add to Cart</button>
+            </div>
           </div>
         </div>
       ) : (
