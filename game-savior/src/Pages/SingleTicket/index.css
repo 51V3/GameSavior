@@ -1,0 +1,43 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+.country-flag {
+    width: 40px;
+}
+
+.team-flag {
+    width:100px;
+}
+
+.competition-details {
+    display: flex;
+    align-items: row;
+  }
+
+.team-container {
+    display: flex;
+    align-items: row;
+}
+
+.competition {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.date-container {
+    display: flex;
+}
+
+.page-title {
+    font-size: 32px;
+    margin-bottom: 30px;
+    color: white;
+    font-family: 'Arial', sans-serif;
+}
