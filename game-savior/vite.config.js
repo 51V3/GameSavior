@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://api.football-data.org/v4',
+        target: 'https://api.football-data.org/v4/competitions/CL',
         changeOrigin: true,
         headers: {
           'X-Auth-Token': '11476ea25dc240e3896d3c993c233c5f',

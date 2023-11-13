@@ -28,6 +28,7 @@ html, body {
 .team-container {
     display: flex;
     align-items: row;
+    justify-content: space-around;
 }
 
 .competition {
@@ -38,6 +39,13 @@ html, body {
 
 .date-container {
     display: flex;
+    justify-content: center;
+}
+
+.date-game{
+    display: flex;
+    justify-content: center;
+    margin: 10px;
 }
 
 .page-title {
@@ -47,8 +55,38 @@ html, body {
     font-family: 'Arial', sans-serif;
 }
 
-.game-details p {
+.date-container p {
     font-size: 20px;
     color: white;
     font-family: 'Arial', sans-serif;
+}
+
+.team-container p {
+    font-size: 20px;
+    color: white;
+    font-family: 'Arial', sans-serif;
+}
+
+.game-details {
+    justify-content: space-around;
+}
+
+.ticket-container {
+    margin: 20px;
+}
+
+.ticket-container p {
+    margin-bottom: 5px;
+    color: white;
+}
+
+.ticket-container button {
+    padding: 8px 12px;
+    margin-right: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #8f1a1a;
+    color: white;
+    border: none;
+    border-radius: 4px;
 }

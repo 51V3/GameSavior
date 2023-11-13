@@ -1,3 +1,9 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .checkout-container {
     max-width: 800px;
     margin: 0 auto;
@@ -7,6 +13,8 @@
     box-shadow: 0 0 20px rgba(18, 18, 18, 0.2);
     border-radius: 8px;
     font-family: 'Arial', sans-serif;
+    position: relative;
+    z-index: 2;
   }
   
   .checkout-title {
@@ -127,4 +135,3 @@
   .back-to-cart-link:hover {
     color: lightgray;
   }
-  

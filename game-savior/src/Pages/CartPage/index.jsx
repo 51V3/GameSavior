@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, Outlet } from "react-router-dom";
 import axios from "axios";
 import "./Cart.css";
 import Checkout from "../Checkout/index.jsx";
@@ -55,9 +55,9 @@ export default function Cart() {
       <ul className="cart-items">
         {cart.map((ticket) => (
           <li key={ticket._id} className="cart-item">
-            <div className="item-details">
-              <p className="item-name">{ticket.name}</p>
-              <p className="item-price">${25}</p>
+            <div className="cart-item-details">
+              <p className="cart-item-name">{ticket.name}</p>
+              <p className="cart-item-price">${25}</p>
               <input
                 type="number"
                 min="0"
@@ -65,25 +65,29 @@ export default function Cart() {
                 onChange={(e) =>
                   handleQuantityChange(ticket._id, parseInt(e.target.value))
                 }
-                className="item-quantity"
+                className="cart-item-quantity"
               />
-              <p className="item-total-price">
+              <p className="cart-item-total-price">
                 Total Price: ${calculateTotalPrice(ticket)}
               </p>
             </div>
           </li>
         ))}
       </ul>
+      <Outlet />
+      {/* 
+      <button className="cart-checkout-button">
       <Link
-          to={{
-            pathname: "/checkout",
-            state: { cart: cart } 
-          }}
+        to={{
+          pathname: "/checkout",
+          state: { cart: cart }
+        }}
         className="checkout-link"
       >
         <Checkout />
-      </Link>
-
+       Go to Checkout </Link>
+      </button>
+      */}
     </div>
   );
 }
