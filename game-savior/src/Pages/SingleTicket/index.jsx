@@ -3,7 +3,6 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-
 export default function SingleTicket() {
   const [match, setMatch] = useState(null);
   const { id } = useParams();
@@ -11,14 +10,18 @@ export default function SingleTicket() {
   const [ticketCount, setTicketCount] = useState(1);
 
   useEffect(() => {
-    axios
-      .get(`/api/matches/${id}`) 
-      .then((response) => {
-        setMatch(response.data);
-      })
-      .catch((error) => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`/api/matches/${id}`);
+        setMatch(response.data.matches);
+      } catch (error) {
         console.error(error);
-      });
+
+        // Handle 404 response, for example, redirect to a 404 page or show an error message
+      }
+    };
+
+    fetchData();
   }, [id]);
 
   useEffect(() => {
@@ -42,10 +45,11 @@ export default function SingleTicket() {
   return (
     <div>
       <h2 className="page-title">Game Details</h2>
-      {match && (
+      {match !== null ? (
         <div className="competition">
           <div className="competition-details">
-            <img className="country-flag" src={match.area.flag} /><p>{match.area.name}: {match.competition.name}</p>
+            <img className="country-flag" src={match.area.flag} alt="Country Flag" />
+            <p>{match.area.name}: {match.competition.name}</p>
           </div>
           <div className="date-container">
             <p className="date-game">{formattedDate}</p>
@@ -53,14 +57,14 @@ export default function SingleTicket() {
           <div className="game-details">
             <div className="team-container">
               <div className="team-details">
-                <img className="team-flag" src={match.homeTeam.crest} />
+                <img className="team-flag" src={match.homeTeam.crest} alt="Home Team Crest" />
                 <p>{match.homeTeam.name}</p>
               </div>
               <div>
                 <p><b> - </b></p>
               </div>
               <div className="team-details">
-                <img className="team-flag" src={match.awayTeam.crest} />
+                <img className="team-flag" src={match.awayTeam.crest} alt="Away Team Crest" />
                 <p>{match.awayTeam.name}</p>
               </div>
             </div>
@@ -70,8 +74,9 @@ export default function SingleTicket() {
             <button onClick={handleIncrement}>+</button>
             <button onClick={handleDecrement}>-</button>
           </div>
-          
         </div>
+      ) : (
+        <p>Match not found or has ended.</p>
       )}
     </div>
   );
