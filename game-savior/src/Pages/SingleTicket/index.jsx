@@ -79,7 +79,7 @@ export default function SingleTicket() {
                 <p>{match.homeTeam.name}</p>
               </div>
               <div>
-                <p><b> - </b></p>
+                <p> vs </p>
               </div>
               <div className="team-details">
                 <img className="team-flag" src={match.awayTeam.crest} alt="Away Team Crest" />

@@ -22,13 +22,13 @@ html, body {
     font-size: 20px;
     color: white;
     font-family: 'Arial', sans-serif;
-    margin: 10px;
+    margin: 20px;
 }
 
 .team-container {
     display: flex;
-    align-items: row;
-    justify-content: space-around;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .competition {
@@ -40,6 +40,7 @@ html, body {
 .date-container {
     display: flex;
     justify-content: center;
+    margin: 10px;
 }
 
 .date-game{
@@ -53,6 +54,7 @@ html, body {
     margin-bottom: 30px;
     color: white;
     font-family: 'Arial', sans-serif;
+    margin: 60px;
 }
 
 .date-container p {
@@ -76,8 +78,10 @@ html, body {
 }
 
 .ticket-container p {
-    margin-bottom: 5px;
+    font-size: 20px;
     color: white;
+    font-family: 'Arial', sans-serif;
+    margin: 20px;
 }
 
 .ticket-container button {
@@ -93,4 +97,8 @@ html, body {
 
 .add-button {
     margin: 20px;
+}
+
+.team-details {
+    margin: 10px;
 }
