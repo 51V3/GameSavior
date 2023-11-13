@@ -1,35 +1,53 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import axios from "axios";
 import "./Cart.css";
 import Checkout from "../Checkout/index.jsx";
+import { useCart } from "../../Components/CartContext";
 
 export default function Cart() {
-const [cart, setCart] = useState([]);
+  const { id } = useParams();
+  const { cart, dispatch } = useCart() || {};
+
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("api_endpoint"); // dar replace com a nossa api
-        const data = await response.json();
-        setCart(data);
+        if (id) {
+          const response = await axios.get(`api/matches/${id}`);
+          dispatch({ type: "SET_CART", payload: response.data });
+        }
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching cart data:", error);
+        setError(error.message);
+        setLoading(false);
       }
     };
 
     fetchData();
-  }, []);
+  }, [id, dispatch]);
 
   const handleQuantityChange = (id, newQuantity) => {
     const updatedCart = cart.map((ticket) =>
       ticket._id === id ? { ...ticket, quantity: newQuantity } : ticket
     );
-    setCart(updatedCart);
+    dispatch({ type: "SET_CART", payload: updatedCart });
   };
 
   const calculateTotalPrice = (ticket) => {
     return (ticket.quantity || 0) * 25;
   };
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
 
   return (
     <div className="cart-container">
@@ -56,9 +74,16 @@ const [cart, setCart] = useState([]);
           </li>
         ))}
       </ul>
-      <Link to="/checkout" className="checkout-link">
-        <Checkout cart={cart} />
+      <Link
+          to={{
+            pathname: "/checkout",
+            state: { cart: cart } 
+          }}
+        className="checkout-link"
+      >
+        <Checkout />
       </Link>
+
     </div>
   );
 }

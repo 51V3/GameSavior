@@ -19,7 +19,7 @@ function App() {
         <Route path={"/match"} element={<TicketGame />} />
         <Route path={"/match/:id"} element={<SingleTicket />} />
         <Route path={"/cart"} element={<Cart />} />
-        <Route path={"/checkout"} element={<Checkout cart={Cart} />} />
+        <Route path={"/checkout"} element={<Checkout />} />
       </Routes>
     </div>
   )

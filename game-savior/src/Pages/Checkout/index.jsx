@@ -1,22 +1,26 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./Checkout.css";
 
-export default function Checkout({ cart }) {
-  console.log("Cart in Component:", cart);
+export default function Checkout() {
+  const location = useLocation();
+  const cart = location.state?.cart || [];
+
+  console.log("Cart in Checkout component:", cart);
+
+  const calculateTotalPrice = () => {
+    return cart.reduce((total, ticket) => total + (ticket.quantity ?? 0) * 25, 0);
+  };
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [cellphone, setCellphone] = useState("");
-
-  const calculateTotalPrice = () => {
-    return cart.reduce((total, ticket) => total + ticket.quantity * 25, 0);
-  };
 
   const handlePlaceOrder = () => {
     console.log("Order placed!");
     console.log("Name:", name);
     console.log("Email:", email);
-    console.log("Cellphone:", cellphone);
+    console.log("Phone Number:", cellphone);
   };
 
   return (
@@ -29,7 +33,7 @@ export default function Checkout({ cart }) {
               <p className="item-name">{ticket.name}</p>
               <p className="item-quantity">Quantity: {ticket.quantity}</p>
               <p className="item-total-price">
-                Total Price: ${ticket.quantity * 25}
+                Total Price: ${(ticket.quantity || 0) * 25}
               </p>
             </div>
           </li>
