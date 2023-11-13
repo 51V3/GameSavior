@@ -12,12 +12,6 @@ export default function NavBar() {
             <img src={logo} alt="Logo" className="logo" />        </Link>
       </div>
 
-      <div className="links">
-        <Link to="/alltickets" className="link">
-          All Tickets
-        </Link>
-      </div>
-
       <div className="right-section">
         <Link to="/cart" className="link">
           <img src={cart} alt="Cart" className="cart-icon" />

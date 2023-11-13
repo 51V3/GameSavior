@@ -2,10 +2,11 @@
     max-width: 800px;
     margin: 0 auto;
     padding: 40px;
-    background-color: black;
+    background-color: #121212;
     color: white;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 20px rgba(18, 18, 18, 0.2);
     border-radius: 8px;
+    font-family: 'Arial', sans-serif;
   }
   
   .checkout-title {
@@ -18,42 +19,50 @@
   .checkout-items {
     list-style: none;
     padding: 0;
+    font-family: 'Arial', sans-serif;
   }
   
   .checkout-item {
     margin-bottom: 30px;
     border-bottom: 1px solid white;
     padding-bottom: 20px;
+    font-family: 'Arial', sans-serif;
   }
   
   .item-details {
     display: flex;
     flex-direction: column;
+    font-family: 'Arial', sans-serif;
   }
   
   .item-name {
     font-size: 24px;
-    color: red;
+    color: white;
+    font-family: 'Arial', sans-serif;
   }
   
   .item-quantity {
     font-size: 18px;
+    font-family: 'Arial', sans-serif;
   }
   
   .item-total-price {
     font-size: 20px;
-    color: red;
+    color: white;
+    font-family: 'Arial', sans-serif;
   }
   
   .customer-info {
     margin-top: 30px;
+    font-family: 'Arial', sans-serif;
   }
   
   label {
     display: block;
     margin-bottom: 10px;
-    color: red;
+    color: white;
     font-size: 18px;
+    font-family: 'Arial', sans-serif;
   }
   
   input {
@@ -65,6 +74,7 @@
     border-radius: 4px;
     background-color: transparent;
     color: white;
+    font-family: 'Arial', sans-serif;
   }
   
   .total-section {
@@ -72,20 +82,23 @@
     display: flex;
     justify-content: space-between;
     font-size: 24px;
+    font-family: 'Arial', sans-serif;
   }
   
   .total-text {
-    color: red;
+    color: white;
     font-weight: bold;
+    font-family: 'Arial', sans-serif;
   }
   
   .total-amount {
-    color: red;
+    color: white;
     font-weight: bold;
+    font-family: 'Arial', sans-serif;
   }
   
   .place-order-button {
-    background-color: red;
+    background-color: #B22222;
     color: white;
     padding: 15px 20px;
     font-size: 18px;
@@ -94,6 +107,7 @@
     border-radius: 4px;
     margin-top: 30px;
     transition: background-color 0.3s ease;
+    font-family: 'Arial', sans-serif;
   }
   
   .place-order-button:hover {
@@ -107,6 +121,7 @@
     text-decoration: none;
     font-size: 18px;
     transition: color 0.3s ease;
+    font-family: 'Arial', sans-serif;
   }
   
   .back-to-cart-link:hover {

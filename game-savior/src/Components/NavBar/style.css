@@ -25,6 +25,7 @@
     display: flex;
     align-items: center;
   }
+  /*
   
   .links {
     display: flex;
@@ -59,6 +60,7 @@
     text-shadow: 0 0 8px #ffffff;
     transform: scale(1.1);
   }
+  */
   
   .logo {
     max-height: 50px;
