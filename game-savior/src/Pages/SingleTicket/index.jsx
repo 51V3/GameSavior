@@ -12,18 +12,18 @@ export default function SingleTicket() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`/api/matches/${id}`);
-        setMatch(response.data.matches);
+        const response = await axios.get(`/api/matches`);
+        // Find the match with the specified id
+        const selectedMatch = response.data.matches.find((m) => m.id === parseInt(id));
+        setMatch(selectedMatch);
       } catch (error) {
         console.error(error);
-
-        // Handle 404 response, for example, redirect to a 404 page or show an error message
       }
     };
 
     fetchData();
   }, [id]);
-
+  
   useEffect(() => {
     if (match && match.utcDate) {
       const dateObject = new Date(match.utcDate);

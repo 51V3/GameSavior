@@ -9,6 +9,7 @@ const TicketGame = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get("/api/matches");
+        console.log("API Response:", response.data);
         setMatches(response.data.matches);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -25,7 +26,7 @@ const TicketGame = () => {
         {matches.map((match) => (
           <li key={match.id}>
             <Link to={`/match/${match.id}`}>
-              {match.homeTeam.name} vs {match.awayTeam.name}
+              {`${match.homeTeam.name} vs ${match.awayTeam.name}`}
             </Link>
           </li>
         ))}
