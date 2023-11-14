@@ -3,7 +3,6 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useCart } from "../../Components/CartContext";
-import TicketJSON from "../../assets/Ticket.json";
 
 export default function SingleTicket() {
   const [matches, setMatches] = useState(null);
@@ -45,7 +44,7 @@ export default function SingleTicket() {
     }
   };
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     const ticket = {
       homeTeam: matches.homeTeam.name,
       awayTeam: matches.awayTeam.name,
@@ -53,14 +52,17 @@ export default function SingleTicket() {
       quantity: ticketCount,
     };
 
-    // Save the ticket information to localStorage using the new variable name
-    const existingCart = JSON.parse(localStorage.getItem(TicketJSON)) || [];
-    const newCart = [...existingCart, ticket];
-    localStorage.setItem(TicketJSON, JSON.stringify(newCart));
-
-    // Dispatch an action to add the ticket to the existing cart
-    dispatch({ type: "SET_CART", payload: newCart });
-  };
+    try {
+      // Send a POST request to the server
+      await axios.post('http://localhost:5005/ticket', ticket);
+  
+      // Optionally, you can navigate the user or perform other actions upon successful submission
+      // navigate('/success'); // Replace '/success' with the desired route
+    } catch (error) {
+      console.error("Error posting ticket:", error);
+    }
+  }
+  
 
   return (
     <div>

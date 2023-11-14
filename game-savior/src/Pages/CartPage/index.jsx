@@ -3,7 +3,6 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Cart.css";
 import { useCart } from "../../Components/CartContext";
-import TicketJSON from "../../assets/Ticket.json";
 
 export default function Cart() {
   const { cart, dispatch } = useCart() || {};
@@ -15,8 +14,8 @@ export default function Cart() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const storedCart = JSON.parse(localStorage.getItem(TicketJSON)) || [];
-        dispatch({ type: "SET_CART", payload: storedCart });
+        const response = await axios.get('http://localhost:5005/ticket');
+        dispatch({ type: "SET_CART", payload: response.data });
         setLoading(false);
       } catch (error) {
         console.error("Error fetching cart data:", error);
@@ -29,11 +28,20 @@ export default function Cart() {
     fetchData();
   }, [dispatch]);
 
-  const handleQuantityChange = (index, newQuantity) => {
+  const handleQuantityChange = async (index, newQuantity) => {
     const updatedCart = cart.map((ticket, i) =>
       i === index ? { ...ticket, quantity: newQuantity } : ticket
     );
-    dispatch({ type: "SET_CART", payload: updatedCart });
+
+    try {
+      await axios.put(`http://localhost:5005/ticket/${cart[index].id}`, {
+        quantity: newQuantity,
+      });
+      dispatch({ type: "SET_CART", payload: updatedCart });
+    } catch (error) {
+      console.error("Error updating quantity:", error);
+      // Handle error scenarios here, e.g., show an error message to the user
+    }
   };
 
   const calculateTotalPrice = () => {
@@ -48,13 +56,25 @@ export default function Cart() {
     return <p>Error: {error}</p>;
   }
 
-  const handleDelete = (index) => {
-    const updatedCart = [...cart.slice(0, index), ...cart.slice(index + 1)];
-    dispatch({ type: "SET_CART", payload: updatedCart });
+  const handleDelete = async (index) => {
+    try {
+      await axios.delete(`http://localhost:5005/ticket/${cart[index].id}`);
+      const updatedCart = [...cart.slice(0, index), ...cart.slice(index + 1)];
+      dispatch({ type: "SET_CART", payload: updatedCart });
+    } catch (error) {
+      console.error("Error deleting item:", error);
+      // Handle error scenarios here, e.g., show an error message to the user
+    }
   };
 
-  const handleDeleteAll = () => {
-    dispatch({ type: "SET_CART", payload: [] });
+  const handleDeleteAll = async () => {
+    try {
+      await axios.delete('http://localhost:5005/ticket');
+      dispatch({ type: "SET_CART", payload: [] });
+    } catch (error) {
+      console.error("Error deleting all items:", error);
+      // Handle error scenarios here, e.g., show an error message to the user
+    }
   };
 
   const handleCheckout = () => {

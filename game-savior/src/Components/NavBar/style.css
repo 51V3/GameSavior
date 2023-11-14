@@ -16,58 +16,69 @@
     font-family: 'Arial', sans-serif;
   }
   
-  .left-section {
-    display: flex;
-    align-items: center;
-  }
-  
-  .right-section {
-    display: flex;
-    align-items: center;
-  }
-  /*
-  
-  .links {
-    display: flex;
-    align-items: center;
-  }
-  
-  .links a {
-    text-decoration: none;
-    color: #c4c4c4;
-    margin-left: 20px;
-    font-size: 18px;
-    transition: color 0.3s, transform 0.3s, text-shadow 0.3s;
-  }
-  
-  .links a:hover {
-    color: #ffffff;
-    text-shadow: 0 0 8px #ffffff;
-    transform: scale(1.1);
-  }
+.left-section {
+  display: flex;
+  align-items: center;
+}
 
-  .links a img {
-    text-decoration: none;
-    color: #c4c4c4;
-    margin-left: 20px;
-    font-size: 18px;
-    transition: color 0.3s, transform 0.3s, text-shadow 0.3s;
-  }
-  
-  .links a:hover img {
-    filter: brightness(1.2);
-    color: #ffffff;
-    text-shadow: 0 0 8px #ffffff;
-    transform: scale(1.1);
-  }
-  */
-  
-  .logo {
-    max-height: 50px;
-    max-width: 150px;
-  }
-  
-  .cart-icon {
-    max-height: 50px;
-    max-width: 50px;
-  }
+.right-section {
+  display: flex;
+  align-items: center;
+}
+/*
+
+.links {
+  display: flex;
+  align-items: center;
+}
+
+.links a {
+  text-decoration: none;
+  color: #c4c4c4;
+  margin-left: 20px;
+  font-size: 18px;
+  transition: color 0.3s, transform 0.3s, text-shadow 0.3s;
+}
+
+.links a:hover {
+  color: #ffffff;
+  text-shadow: 0 0 8px #ffffff;
+  transform: scale(1.1);
+}
+
+.links a img {
+  text-decoration: none;
+  color: #c4c4c4;
+  margin-left: 20px;
+  font-size: 18px;
+  transition: color 0.3s, transform 0.3s, text-shadow 0.3s;
+}
+
+.links a:hover img {
+  filter: brightness(1.2);
+  color: #ffffff;
+  text-shadow: 0 0 8px #ffffff;
+  transform: scale(1.1);
+}
+*/
+
+.logo {
+  max-height: 50px;
+  max-width: 150px;
+}
+
+.cart-icon {
+  max-height: 50px;
+  max-width: 50px;
+}
+
+.cart-badge {
+background-color: red;
+color: white;
+border-radius: 50%;
+padding: 4px 8px;
+font-size: 12px;
+position: absolute;
+top: 0;
+right: 0;
+}

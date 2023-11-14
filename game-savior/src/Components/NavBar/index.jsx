@@ -2,9 +2,15 @@ import { Link } from "react-router-dom";
 import "./style.css";
 import React from "react";
 import logo from "../../assets/Images/GameSavior.png";
-import cart from "../../assets/Images/cart-logo.png";
+import cartImage from "../../assets/Images/cart-logo.png";
+import { useCart } from "../../Components/CartContext";
 
 export default function NavBar() {
+  const { cart } = useCart() || {};
+
+  // Calculate the total number of tickets in the cart
+  const totalTickets = cart.reduce((total, ticket) => total + ticket.quantity, 0);
+
   return (
     <div className="navbar">
       <div className="left-section">
@@ -14,7 +20,8 @@ export default function NavBar() {
 
       <div className="right-section">
         <Link to="/cart" className="link">
-          <img src={cart} alt="Cart" className="cart-icon" />
+          <img src={cartImage} alt="Cart" className="cart-icon" />
+          {totalTickets > 0 && <span className="cart-badge">{totalTickets}</span>}
         </Link>
       </div>
     </div>
