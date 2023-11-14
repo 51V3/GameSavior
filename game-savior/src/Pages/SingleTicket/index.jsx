@@ -1,7 +1,7 @@
 import "./index.css";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { useCart } from "../../Components/CartContext";
 
 export default function SingleTicket() {
@@ -9,8 +9,8 @@ export default function SingleTicket() {
   const { id } = useParams();
   const [formattedDate, setFormattedDate] = useState('');
   const [ticketCount, setTicketCount] = useState(1);
-  const navigate = useNavigate();
   const { cart, dispatch } = useCart() || {};
+  const [isAddedToCart, setIsAddedToCart] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,7 +55,10 @@ export default function SingleTicket() {
     try {
       // Send a POST request to the server
       await axios.post('http://localhost:5005/ticket', ticket);
-  
+
+      // Update state to show the "Added to Cart" message
+      setIsAddedToCart(true);
+
       // Optionally, you can navigate the user or perform other actions upon successful submission
       // navigate('/success'); // Replace '/success' with the desired route
     } catch (error) {
@@ -97,7 +100,13 @@ export default function SingleTicket() {
             <button onClick={handleDecrement}>-</button>
             <div className="add-button">
               <button onClick={handleAddToCart}>Add to Cart</button>
+              {isAddedToCart && <p>Tickets added to cart!</p>}
             </div>
+          </div>
+          <div className="match-link">
+              <Link to={"/match"}>
+              Go to Matches
+              </Link>
           </div>
         </div>
       ) : (
