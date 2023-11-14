@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useCart } from "../../Components/CartContext";
+import TicketJSON from "../../assets/Ticket.json";
 
 export default function SingleTicket() {
   const [matches, setMatches] = useState(null);
@@ -46,19 +47,20 @@ export default function SingleTicket() {
 
   const handleAddToCart = () => {
     const ticket = {
-      _id: matches.id,
-      name: `${matches.homeTeam.name} vs ${matches.awayTeam.name} - ${formattedDate}`,
+      homeTeam: matches.homeTeam.name,
+      awayTeam: matches.awayTeam.name,
+      formattedDate: formattedDate,
       quantity: ticketCount,
     };
-  
+
+    // Save the ticket information to localStorage using the new variable name
+    const existingCart = JSON.parse(localStorage.getItem(TicketJSON)) || [];
+    const newCart = [...existingCart, ticket];
+    localStorage.setItem(TicketJSON, JSON.stringify(newCart));
+
     // Dispatch an action to add the ticket to the existing cart
-    dispatch({ type: "ADD_TO_CART", payload: ticket });
-  
-    // Optional: You can navigate to the cart page if needed
-    // navigate('/cart');
+    dispatch({ type: "SET_CART", payload: newCart });
   };
-  
-  console.log(ticketCount);
 
   return (
     <div>
@@ -91,7 +93,7 @@ export default function SingleTicket() {
             <p>Tickets: {ticketCount}</p>
             <button onClick={handleIncrement}>+</button>
             <button onClick={handleDecrement}>-</button>
-            <div className="add-button" >
+            <div className="add-button">
               <button onClick={handleAddToCart}>Add to Cart</button>
             </div>
           </div>

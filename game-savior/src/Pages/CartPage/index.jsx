@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams, Outlet, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Cart.css";
-import Checkout from "../Checkout/index.jsx";
 import { useCart } from "../../Components/CartContext";
+import TicketJSON from "../../assets/Ticket.json";
 
 export default function Cart() {
   const { cart, dispatch } = useCart() || {};
@@ -15,25 +15,25 @@ export default function Cart() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("ID:", id);
-        const response = await axios.get(`/api/matches/${id}`);
-        dispatch({ type: "INITIALIZE_CART", payload: response.data });
+        const storedCart = JSON.parse(localStorage.getItem(TicketJSON)) || [];
+        dispatch({ type: "SET_CART", payload: storedCart });
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching cart data:", error.response || error);
+        console.error("Error fetching cart data:", error);
+
         setError(error.response?.data?.message || error.message);
         setLoading(false);
       }
-    };    
+    };
 
     fetchData();
-  }, [id, dispatch]);
+  }, [dispatch]);
 
-  const handleQuantityChange = (id, newQuantity) => {
-    const updatedCart = cart.map((ticket) =>
-      ticket._id === id ? { ...ticket, quantity: newQuantity } : ticket
+  const handleQuantityChange = (index, newQuantity) => {
+    const updatedCart = cart.map((ticket, i) =>
+      i === index ? { ...ticket, quantity: newQuantity } : ticket
     );
-    dispatch({ type: "UPDATE_CART", payload: updatedCart });
+    dispatch({ type: "SET_CART", payload: updatedCart });
   };
 
   const calculateTotalPrice = () => {
@@ -52,18 +52,16 @@ export default function Cart() {
     <div className="cart-container">
       <h1 className="cart-title">Your Cart</h1>
       <ul className="cart-items">
-        {cart.map((ticket) => (
-          <li key={ticket._id} className="cart-item">
+        {cart.map((ticket, index) => (
+          <li key={index} className="cart-item">
             <div className="cart-item-details">
-              <p className="cart-item-name">{ticket.name}</p>
+              <p className="cart-item-name">{`${ticket.homeTeam} vs ${ticket.awayTeam} - ${ticket.formattedDate}`}</p>
               <p className="cart-item-price">${25}</p>
               <input
                 type="number"
                 min="0"
                 value={ticket.quantity || 0}
-                onChange={(e) =>
-                  handleQuantityChange(ticket._id, parseInt(e.target.value))
-                }
+                onChange={(e) => handleQuantityChange(index, parseInt(e.target.value))}
                 className="cart-item-quantity"
               />
               <p className="cart-item-total-price">

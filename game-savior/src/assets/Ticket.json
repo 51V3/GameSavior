@@ -1,0 +1,15 @@
+[
+    {
+      "homeTeam": "TeamA",
+      "awayTeam": "TeamB",
+      "formattedDate": "01/01/2023 18:30",
+      "quantity": 2
+    },
+    {
+      "homeTeam": "TeamX",
+      "awayTeam": "TeamY",
+      "formattedDate": "01/02/2023 20:00",
+      "quantity": 1
+    }
+  ]
+  
