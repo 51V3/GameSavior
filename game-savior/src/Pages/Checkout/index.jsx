@@ -1,12 +1,16 @@
 import React, { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import "./Checkout.css";
+import axios from "axios";
+import { useCart } from "../../Components/CartContext";
 
 export default function Checkout() {
   const location = useLocation();
   const cart = location.state?.cart || [];
   const totalPrice = location.state?.totalPrice || 0;
   const navigate = useNavigate();
+  const { cart1, dispatch} = useCart();
+  const { id } = useParams();
 
   console.log("Cart in Checkout component:", cart);
 
@@ -14,12 +18,18 @@ export default function Checkout() {
   const [email, setEmail] = useState("");
   const [cellphone, setCellphone] = useState("");
 
-  const handlePlaceOrder = () => {
-    console.log("Order placed!");
-    console.log("Name:", name);
-    console.log("Email:", email);
-    console.log("Phone Number:", cellphone);
+  const handleDeleteAll = async () => {
+    try {
+      for(const ticket of cart){
+        await axios.delete(`http://localhost:5005/ticket/${ticket.id}`);
+      }
+      dispatch({ type: "SET_CART", payload: [] });
+    } catch (error) {
+      console.error("Error deleting all items:", error);
+      // Handle error scenarios here, e.g., show an error message to the user
+    }
   };
+
 
   return (
     <div className="checkout-container">
@@ -66,9 +76,11 @@ export default function Checkout() {
         <p className="total-text">Total:</p>
         <p className="total-amount">${totalPrice}</p>
       </div>
-      <button className="place-order-button" onClick={handlePlaceOrder}>
-        Place Order
-      </button>
+        <Link to="/orderplaced">
+        <button className="place-order-button" onClick={handleDeleteAll}>
+          Place Order
+        </button>
+        </Link>
       <Link to="/cart" className="back-to-cart-link">
         Back to Cart
       </Link>

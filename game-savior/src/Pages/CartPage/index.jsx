@@ -71,7 +71,9 @@ export default function Cart() {
 
   const handleDeleteAll = async () => {
     try {
-      await axios.delete('http://localhost:5005/ticket');
+      for(const ticket of cart){
+        await axios.delete(`http://localhost:5005/ticket/${ticket.id}`);
+      }
       dispatch({ type: "SET_CART", payload: [] });
     } catch (error) {
       console.error("Error deleting all items:", error);

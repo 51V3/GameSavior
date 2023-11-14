@@ -105,7 +105,7 @@ export default function SingleTicket() {
           </div>
           <div className="match-link">
               <Link to={"/match"}>
-              Go to Matches
+                Back
               </Link>
           </div>
         </div>

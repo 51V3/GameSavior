@@ -6,6 +6,7 @@ import Checkout from './Pages/Checkout'
 import TicketGame from './Pages/TicketGame'
 import Cart from './Pages/CartPage'
 import SingleTicket from './Pages/SingleTicket'
+import OrderPage from './Pages/OrderPage'
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path={"/match/:id"} element={<SingleTicket />} />
         <Route path={"/cart"} element={<Cart />} />
         <Route path={"/checkout"} element={<Checkout />} />
+        <Route path={"/orderplaced"} element={<OrderPage />} />
       </Routes>
     </div>
   )
