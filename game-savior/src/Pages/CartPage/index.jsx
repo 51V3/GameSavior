@@ -15,11 +15,11 @@ export default function Cart() {
     const fetchData = async () => {
       try {
         const response = await axios.get('http://localhost:5005/ticket');
+        console.log("Response from backend:", response.data);  // Log the response
         dispatch({ type: "SET_CART", payload: response.data });
         setLoading(false);
       } catch (error) {
         console.error("Error fetching cart data:", error);
-
         setError(error.response?.data?.message || error.message);
         setLoading(false);
       }
@@ -29,20 +29,22 @@ export default function Cart() {
   }, [dispatch]);
 
   const handleQuantityChange = async (index, newQuantity) => {
-    const updatedCart = cart.map((ticket, i) =>
-      i === index ? { ...ticket, quantity: newQuantity } : ticket
-    );
-
     try {
-      await axios.put(`http://localhost:5005/ticket/${cart[index].id}`, {
+      // Send the update request
+      await axios.patch(`http://localhost:5005/ticket/${cart[index].id}`, {
         quantity: newQuantity,
       });
+  
+      // Update the local state with the new quantity
+      const updatedCart = cart.map((ticket, i) =>
+        i === index ? { ...ticket, quantity: newQuantity } : ticket
+      );
       dispatch({ type: "SET_CART", payload: updatedCart });
     } catch (error) {
       console.error("Error updating quantity:", error);
-      // Handle error scenarios here, e.g., show an error message to the user
+      console.error("Axios error details:", error.response); // Log the Axios error details
     }
-  };
+  };  
 
   const calculateTotalPrice = () => {
     return cart.reduce((total, ticket) => total + (ticket.quantity ?? 0) * 25, 0);
