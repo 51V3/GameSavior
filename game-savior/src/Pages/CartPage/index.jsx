@@ -1,31 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams, Outlet } from "react-router-dom";
+import { Link, useParams, Outlet, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Cart.css";
 import Checkout from "../Checkout/index.jsx";
 import { useCart } from "../../Components/CartContext";
 
 export default function Cart() {
-  const { id } = useParams();
   const { cart, dispatch } = useCart() || {};
-
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const { id } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (id) {
-          const response = await axios.get(`api/matches/${id}`);
-          dispatch({ type: "SET_CART", payload: response.data });
-        }
+        console.log("ID:", id);
+        const response = await axios.get(`/api/matches/${id}`);
+        dispatch({ type: "INITIALIZE_CART", payload: response.data });
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching cart data:", error);
-        setError(error.message);
+        console.error("Error fetching cart data:", error.response || error);
+        setError(error.response?.data?.message || error.message);
         setLoading(false);
       }
-    };
+    };    
 
     fetchData();
   }, [id, dispatch]);
@@ -34,11 +33,11 @@ export default function Cart() {
     const updatedCart = cart.map((ticket) =>
       ticket._id === id ? { ...ticket, quantity: newQuantity } : ticket
     );
-    dispatch({ type: "SET_CART", payload: updatedCart });
+    dispatch({ type: "UPDATE_CART", payload: updatedCart });
   };
 
-  const calculateTotalPrice = (ticket) => {
-    return (ticket.quantity || 0) * 25;
+  const calculateTotalPrice = () => {
+    return cart.reduce((total, ticket) => total + (ticket.quantity ?? 0) * 25, 0);
   };
 
   if (loading) {
@@ -74,9 +73,6 @@ export default function Cart() {
           </li>
         ))}
       </ul>
-      <Outlet />
-      {/* 
-      <button className="cart-checkout-button">
       <Link
         to={{
           pathname: "/checkout",
@@ -84,10 +80,10 @@ export default function Cart() {
         }}
         className="checkout-link"
       >
-        <Checkout />
-       Go to Checkout </Link>
-      </button>
-      */}
+        <button className="cart-checkout-button">
+          Go to Checkout
+        </button>
+      </Link>
     </div>
   );
 }
