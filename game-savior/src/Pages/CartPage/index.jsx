@@ -48,6 +48,20 @@ export default function Cart() {
     return <p>Error: {error}</p>;
   }
 
+  const handleDelete = (index) => {
+    const updatedCart = [...cart.slice(0, index), ...cart.slice(index + 1)];
+    dispatch({ type: "SET_CART", payload: updatedCart });
+  };
+
+  const handleDeleteAll = () => {
+    dispatch({ type: "SET_CART", payload: [] });
+  };
+
+  const handleCheckout = () => {
+    // Navigate to the checkout page with the total price in the state
+    navigate("/checkout", { state: { cart: cart, totalPrice: calculateTotalPrice() } });
+  };
+
   return (
     <div className="cart-container">
       <h1 className="cart-title">Your Cart</h1>
@@ -56,7 +70,6 @@ export default function Cart() {
           <li key={index} className="cart-item">
             <div className="cart-item-details">
               <p className="cart-item-name">{`${ticket.homeTeam} vs ${ticket.awayTeam} - ${ticket.formattedDate}`}</p>
-              <p className="cart-item-price">${25}</p>
               <input
                 type="number"
                 min="0"
@@ -64,24 +77,19 @@ export default function Cart() {
                 onChange={(e) => handleQuantityChange(index, parseInt(e.target.value))}
                 className="cart-item-quantity"
               />
-              <p className="cart-item-total-price">
-                Total Price: ${calculateTotalPrice(ticket)}
-              </p>
+              <button onClick={() => handleDelete(index)}>Delete</button>
             </div>
           </li>
         ))}
       </ul>
-      <Link
-        to={{
-          pathname: "/checkout",
-          state: { cart: cart }
-        }}
-        className="checkout-link"
-      >
-        <button className="cart-checkout-button">
-          Go to Checkout
-        </button>
-      </Link>
+      <div className="total-section">
+        <p className="total-text">Total:</p>
+        <p className="total-amount">${calculateTotalPrice()}</p>
+        <button onClick={handleDeleteAll}>Delete All</button>
+      </div>
+      <button className="cart-checkout-button" onClick={handleCheckout}>
+        Go to Checkout
+      </button>
     </div>
   );
 }

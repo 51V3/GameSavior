@@ -85,3 +85,7 @@ font-family: 'Arial', sans-serif;
 .cart-checkout-button:hover {
 background-color: #8f1a1a;
 }
+
+.cart-delete-all-button{
+  color: white;
+}

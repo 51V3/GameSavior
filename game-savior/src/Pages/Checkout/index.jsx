@@ -1,16 +1,14 @@
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Checkout.css";
 
 export default function Checkout() {
   const location = useLocation();
   const cart = location.state?.cart || [];
+  const totalPrice = location.state?.totalPrice || 0;
+  const navigate = useNavigate();
 
   console.log("Cart in Checkout component:", cart);
-
-  const calculateTotalPrice = () => {
-    return cart.reduce((total, ticket) => total + (ticket.quantity ?? 0) * 25, 0);
-  };
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -27,10 +25,10 @@ export default function Checkout() {
     <div className="checkout-container">
       <h1 className="checkout-title">Checkout</h1>
       <ul className="checkout-items">
-        {cart.map((ticket) => (
-          <li key={ticket._id} className="checkout-item">
+        {cart.map((ticket, index) => (
+          <li key={index} className="checkout-item">
             <div className="item-details">
-              <p className="item-name">{ticket.name}</p>
+              <p className="item-name">{`${ticket.homeTeam} vs ${ticket.awayTeam} - ${ticket.formattedDate}`}</p>
               <p className="item-quantity">Quantity: {ticket.quantity}</p>
               <p className="item-total-price">
                 Total Price: ${(ticket.quantity || 0) * 25}
@@ -56,7 +54,7 @@ export default function Checkout() {
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        <label htmlFor="cellphone">Cellphone:</label>
+        <label htmlFor="cellphone">Phone Number:</label>
         <input
           type="tel"
           id="cellphone"
@@ -66,7 +64,7 @@ export default function Checkout() {
       </div>
       <div className="total-section">
         <p className="total-text">Total:</p>
-        <p className="total-amount">${calculateTotalPrice()}</p>
+        <p className="total-amount">${totalPrice}</p>
       </div>
       <button className="place-order-button" onClick={handlePlaceOrder}>
         Place Order
