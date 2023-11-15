@@ -21,7 +21,7 @@ export default function Checkout() {
   const handleDeleteAll = async () => {
     try {
       for(const ticket of cart){
-        await axios.delete(`http://localhost:5005/ticket/${ticket.id}`);
+        await axios.delete(`https://game-savior-backend.onrender.com/ticket/${ticket.id}`);
       }
       dispatch({ type: "SET_CART", payload: [] });
     } catch (error) {

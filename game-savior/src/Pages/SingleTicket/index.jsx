@@ -54,7 +54,7 @@ export default function SingleTicket() {
 
     try {
       // Send a POST request to the server
-      await axios.post('http://localhost:5005/ticket', ticket);
+      await axios.post('https://game-savior-backend.onrender.com/ticket', ticket);
 
       // Update state to show the "Added to Cart" message
       setIsAddedToCart(true);

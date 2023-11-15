@@ -14,7 +14,7 @@ export default function Cart() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5005/ticket');
+        const response = await axios.get('https://game-savior-backend.onrender.com/ticket');
         console.log("Response from backend:", response.data);  // Log the response
         dispatch({ type: "SET_CART", payload: response.data });
         setLoading(false);
@@ -31,7 +31,7 @@ export default function Cart() {
   const handleQuantityChange = async (index, newQuantity) => {
     try {
       // Send the update request
-      await axios.patch(`http://localhost:5005/ticket/${cart[index].id}`, {
+      await axios.patch(`https://game-savior-backend.onrender.com/ticket/${cart[index].id}`, {
         quantity: newQuantity,
       });
   
@@ -60,7 +60,7 @@ export default function Cart() {
 
   const handleDelete = async (index) => {
     try {
-      await axios.delete(`http://localhost:5005/ticket/${cart[index].id}`);
+      await axios.delete(`https://game-savior-backend.onrender.com/ticket/${cart[index].id}`);
       const updatedCart = [...cart.slice(0, index), ...cart.slice(index + 1)];
       dispatch({ type: "SET_CART", payload: updatedCart });
     } catch (error) {
@@ -72,7 +72,7 @@ export default function Cart() {
   const handleDeleteAll = async () => {
     try {
       for(const ticket of cart){
-        await axios.delete(`http://localhost:5005/ticket/${ticket.id}`);
+        await axios.delete(`https://game-savior-backend.onrender.com/ticket/${ticket.id}`);
       }
       dispatch({ type: "SET_CART", payload: [] });
     } catch (error) {
