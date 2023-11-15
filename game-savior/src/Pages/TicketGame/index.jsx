@@ -5,6 +5,8 @@ import axios from "axios";
 
 const TicketGame = () => {
   const [matches, setMatches] = useState([]);
+  const [formattedDate, setFormattedDate] = useState("");
+  const [formattedHour, setFormattedHour] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,6 +21,7 @@ const TicketGame = () => {
 
     fetchData();
   }, []);
+
 
   return (
     <div className="ticket-game">
@@ -51,10 +54,10 @@ const TicketGame = () => {
             </div>
           </div>
 
-          <div className="button-section">
-            <button>
-              Buy
-            </button>
+          <div className="buy-section">
+            <Link to={`/match/${match.id}`}>
+              <p>BUY</p>
+            </Link>
           </div>
         </div>
         ))}
