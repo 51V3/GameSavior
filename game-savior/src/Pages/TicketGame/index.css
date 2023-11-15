@@ -6,7 +6,6 @@
 html, body {
     height: 100%;
     background-color:  rgb(248, 247, 247);
-
 }
 
 .ticket-game {
@@ -16,9 +15,13 @@ html, body {
 
 .competition-page {
     background-color: rgb(248, 247, 247);
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: rgb(150, 150, 150);
-    margin: 20px;
+    margin: 60px;
+}
+
+.competition-page h2{
+    font-size: 35px;
 }
 
 .match-container{
@@ -28,6 +31,7 @@ html, body {
     color: black;
     margin: 80px;
     align-items: center;
+    font-size: 18px;
 }
 
 .team-section {
@@ -40,7 +44,6 @@ html, body {
     background-color: rgb(81, 178, 79);
     padding: 8px 12px;
     margin-right: 5px;
-    font-size: 16px;
     cursor: pointer;
     border: none;
     border-radius: 4px;
@@ -48,4 +51,7 @@ html, body {
 
 .buy-section p {
     color: white;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 16px;
 }

@@ -26,18 +26,19 @@ const TicketGame = () => {
   return (
     <div className="ticket-game">
       <div className="competition-page">
-        <h1>TICKETS</h1>
+        <h2>Tickets</h2>
       </div>
       <div>
         {matches.map((match) => (
+        
         <div className="match-container" key={match.id}>
           <div>
-            <img src={match.competition.emblem} />
+            <img className="team-flag" src={match.competition.emblem} />
           </div>
 
           <div className="competition-section">
             <p>{match.competition.name}</p>
-            <h3>{match.utcDate}</h3>
+            <h3>{formattedDate}</h3>
           </div>
 
           <div className="team-section">
@@ -46,7 +47,7 @@ const TicketGame = () => {
               <p>{match.homeTeam.name}</p>
             </div>
             <div>
-              <p> vs </p>
+              <p> {formattedHour} </p>
             </div>
             <div className="team-details">
               <img className="team-flag" src={match.awayTeam.crest} alt="Away Team Crest" />
