@@ -20,8 +20,8 @@ html, body {
     display: flex;
     align-items: row;
     font-size: 20px;
-    color: white;
-    font-family: 'Arial', sans-serif;
+    color: black;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     margin: 20px;
 }
 
@@ -52,21 +52,21 @@ html, body {
 .page-title {
     font-size: 35px;
     margin-bottom: 30px;
-    color: white;
-    font-family: 'Arial', sans-serif;
+    color: rgb(150, 150, 150);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     margin: 60px;
 }
 
 .date-container p {
     font-size: 20px;
-    color: white;
-    font-family: 'Arial', sans-serif;
+    color: black;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .team-container p {
     font-size: 20px;
-    color: white;
-    font-family: 'Arial', sans-serif;
+    color: black;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .game-details {
@@ -79,8 +79,8 @@ html, body {
 
 .ticket-container p {
     font-size: 20px;
-    color: white;
-    font-family: 'Arial', sans-serif;
+    color: black;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     margin: 20px;
 }
 
@@ -89,7 +89,7 @@ html, body {
     margin-right: 5px;
     font-size: 16px;
     cursor: pointer;
-    background-color: #8f1a1a;
+    background-color: rgb(81, 178, 79);
     color: white;
     border: none;
     border-radius: 4px;
@@ -106,13 +106,15 @@ html, body {
 .match-link {
     display: block;
     color: white;
-    background-color: #8f1a1a;
+    background-color: rgb(81, 178, 79);
     text-decoration: none;
     font-size: 18px;
-    font-family: 'Arial', sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     margin: 10px;
 }
   
-.match-link:hover {
-    color: lightgray;
+.match-link button {
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
 }

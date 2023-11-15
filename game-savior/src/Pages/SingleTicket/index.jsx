@@ -39,8 +39,11 @@ export default function SingleTicket() {
   };
 
   const handleDecrement = () => {
-    if (ticketCount > 0) {
+    if (ticketCount > 1) {
       setTicketCount(ticketCount - 1);
+    }
+    else if (ticketCount <= 1) {
+      setTicketCount(ticketCount)
     }
   };
 
@@ -105,7 +108,9 @@ export default function SingleTicket() {
           </div>
           <div className="match-link">
               <Link to={"/match"}>
-                Back
+                <button>
+                  Back
+                </button>
               </Link>
           </div>
         </div>

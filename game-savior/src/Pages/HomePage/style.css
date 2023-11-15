@@ -64,7 +64,7 @@ html, body {
     position: absolute;
     color: white;
     background-color: transparent;
-    font-weight: bold;
+    font-weight: bolder;
     text-align: left;
     transform: translate(-50%, -50%);
     top: 39%;
@@ -77,16 +77,12 @@ html, body {
     position: absolute;
     color: white;
     background-color: transparent;
-    font-weight: bold;
+    font-weight:normal;
     text-align: left;
     transform: translate(-50%, -50%);
-    top: 48%;
+    top: 47%;
     left: 23%; 
     font-size:17px;
     text-align: center;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-
-.main-photo {
-    margin-top: 90px;
 }
