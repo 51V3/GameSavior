@@ -3,3 +3,5 @@
   to = "https://api.football-data.org/v4/competitions/CL/:splat"
   status = 200
   force = true
+  changeOrigin= true
+  headers = {X-Auth-Token: '11476ea25dc240e3896d3c993c233c5f'}
