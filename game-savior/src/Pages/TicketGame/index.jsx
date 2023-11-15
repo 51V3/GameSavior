@@ -1,3 +1,4 @@
+import "./index.css";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -20,17 +21,44 @@ const TicketGame = () => {
   }, []);
 
   return (
-    <div>
-      <h1>UEFA Champions League Matches</h1>
-      <ul>
+    <div className="ticket-game">
+      <div className="competition-page">
+        <h1>TICKETS</h1>
+      </div>
+      <div>
         {matches.map((match) => (
-          <li key={match.id}>
-            <Link to={`/match/${match.id}`}>
-              {`${match.homeTeam.name} vs ${match.awayTeam.name}`}
-            </Link>
-          </li>
+        <div className="match-container" key={match.id}>
+          <div>
+            <img src={match.competition.emblem} />
+          </div>
+
+          <div className="competition-section">
+            <p>{match.competition.name}</p>
+            <h3>{match.utcDate}</h3>
+          </div>
+
+          <div className="team-section">
+            <div className="team-details">
+              <img className="team-flag" src={match.homeTeam.crest} alt="Home Team Crest" />
+              <p>{match.homeTeam.name}</p>
+            </div>
+            <div>
+              <p> vs </p>
+            </div>
+            <div className="team-details">
+              <img className="team-flag" src={match.awayTeam.crest} alt="Away Team Crest" />
+              <p>{match.awayTeam.name}</p>
+            </div>
+          </div>
+
+          <div className="button-section">
+            <button>
+              Buy
+            </button>
+          </div>
+        </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
