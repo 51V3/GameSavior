@@ -1,8 +1,17 @@
-import React, { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useLocation, useNavigate } from "react-router-dom";
 import jsPDF from "jspdf";
 import { useCart } from "../../Components/CartContext";
+
+const Checkout = () => {
+  const location = useLocation();
+  const cart = location.state?.cart || [];
+  const totalPrice = location.state?.totalPrice || 0;
+  const navigate = useNavigate();
+  const { dispatch } = useCart();
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [cellphone, setCellphone] = useState("");
 
 const handleDeleteAll = async (e) => {
   e.preventDefault();
@@ -53,6 +62,7 @@ const handleDeleteAll = async (e) => {
   } catch (error) {
     console.error("Error handling order:", error);
   }
+};
 
   return (
     <div className="checkout-container">
