@@ -18,7 +18,7 @@ const Checkout = () => {
   const handleDeleteAll = async () => {
     try {
       const deletePromises = cart.map(async (ticket) => {
-        const deleteUrl = `https://game-savior-backend.onrender.com/ticket/${ticket.id}`;
+        const deleteUrl = `/.netlify/functions/proxy/ticket/1/ticket/${ticket.id}`;
         const response = await fetch(deleteUrl, { method: 'DELETE' });
   
         if (!response.ok) {

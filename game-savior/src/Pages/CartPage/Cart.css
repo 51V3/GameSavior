@@ -52,6 +52,7 @@
 .cart-item-price {
   font-size: 20px;
   color: #b2b2b2;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .cart-item-quantity {
