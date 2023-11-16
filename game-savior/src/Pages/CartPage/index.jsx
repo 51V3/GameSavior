@@ -14,8 +14,8 @@ export default function Cart() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('/.netlify/functions/proxy/ticket');
-        console.log("Response from backend:", response.data);
+        const response = await axios.get('https://game-savior-backend.onrender.com/ticket');
+        console.log("Response from backend:", response.data);  // Log the response
         dispatch({ type: "SET_CART", payload: response.data });
         setLoading(false);
       } catch (error) {
@@ -24,14 +24,14 @@ export default function Cart() {
         setLoading(false);
       }
     };
-  
+
     fetchData();
-  }, [dispatch]);  
+  }, [dispatch]);
 
   const handleQuantityChange = async (index, newQuantity) => {
     try {
       // Send the update request
-      await axios.patch(`/.netlify/functions/proxy/ticket/${cart[index].id}`, {
+      await axios.patch(`https://game-savior-backend.onrender.com/ticket/${cart[index].id}`, {
         quantity: newQuantity,
       });
   
@@ -60,7 +60,7 @@ export default function Cart() {
 
   const handleDelete = async (index) => {
     try {
-      await axios.delete(`/.netlify/functions/proxy/ticket/${cart[index].id}`);
+      await axios.delete(`https://game-savior-backend.onrender.com/ticket/${cart[index].id}`);
       const updatedCart = [...cart.slice(0, index), ...cart.slice(index + 1)];
       dispatch({ type: "SET_CART", payload: updatedCart });
     } catch (error) {
@@ -72,7 +72,7 @@ export default function Cart() {
   const handleDeleteAll = async () => {
     try {
       for(const ticket of cart){
-        await axios.delete(`/.netlify/functions/proxy/ticket/${ticket.id}`);
+        await axios.delete(`https://game-savior-backend.onrender.com/ticket/${ticket.id}`);
       }
       dispatch({ type: "SET_CART", payload: [] });
     } catch (error) {

@@ -1,15 +1,18 @@
-import { useLocation, useNavigate } from "react-router-dom";
-import jsPDF from "jspdf";
+import React, { useState } from "react";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import "./Checkout.css";
+import axios from "axios";
 import { useCart } from "../../Components/CartContext";
-import { useState } from "react";
-import { Link } from "react-router-dom";
 
-const Checkout = () => {
+export default function Checkout() {
   const location = useLocation();
   const cart = location.state?.cart || [];
   const totalPrice = location.state?.totalPrice || 0;
   const navigate = useNavigate();
-  const { dispatch } = useCart();
+  const { cart1, dispatch} = useCart();
+  const { id } = useParams();
+
+  console.log("Cart in Checkout component:", cart);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -17,65 +20,16 @@ const Checkout = () => {
 
   const handleDeleteAll = async () => {
     try {
-      const deletePromises = cart.map(async (ticket) => {
-        const deleteUrl = `/.netlify/functions/proxy/ticket/${ticket.id}`;
-        const response = await fetch(deleteUrl, { method: 'DELETE' });
-  
-        if (!response.ok) {
-          throw new Error(`Failed to delete ticket ${ticket.id}. Status: ${response.status}`);
-        }
-  
-        return response;
-      });
-  
-      // Wait for all delete operations to complete
-      await Promise.all(deletePromises);
-  
-      // Clear cart
+      for(const ticket of cart){
+        await axios.delete(`https://game-savior-backend.onrender.com/ticket/${ticket.id}`);
+      }
       dispatch({ type: "SET_CART", payload: [] });
     } catch (error) {
       console.error("Error deleting all items:", error);
+      // Handle error scenarios here, e.g., show an error message to the user
     }
   };
-  
-  
-  const handleEmailConfirmation = async (email, pdfBase64) => {
-    try {
-      const response = await fetch("/.netlify/functions/sendEmail", {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          to: email,
-          subject: "Your Tickets!",
-          attachments: [
-            {
-              content: pdfBase64,
-              filename: 'ticket.pdf',
-              type: 'application/pdf',
-              disposition: 'attachment',
-              encoding: 'base64',
-            },
-          ],
-          html: `<p>Thank you for your order! Here are your tickets.</p><p>See attached PDF for game details.</p>`,
-        }),
-      });
-       
-      if (!response.ok) {
-        throw new Error(`Email request failed with status: ${response.status}`);
-      }
-  
-      // Handle the response if needed
-    } catch (error) {
-      console.error("Error handling order:", error);
-    }
-  };  
 
-  function handleButtonClick(){
-    handleDeleteAll();
-    handleEmailConfirmation();
-  }
 
   return (
     <div className="checkout-container">
@@ -123,9 +77,11 @@ const Checkout = () => {
         <p className="total-amount">${totalPrice}</p>
       </div>
       <div className="button-container">
-        <button className="place-order-button" onClick= {handleButtonClick}>
-          Place Order
-        </button>
+        <Link to="/orderplaced">
+          <button className="place-order-button" onClick={handleDeleteAll}>
+            Place Order
+          </button>
+        </Link>
         <Link to="/cart" className="back-to-cart-link">
           <button className="back-to-cart-button">
             Back to Cart
@@ -134,6 +90,4 @@ const Checkout = () => {
       </div>
     </div>
   );
-};
-
-export default Checkout;
+}
