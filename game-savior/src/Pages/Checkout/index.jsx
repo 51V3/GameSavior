@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import jsPDF from "jspdf";
 import { useCart } from "../../Components/CartContext";
+import { useState } from "react";
 
 const Checkout = () => {
   const location = useLocation();
