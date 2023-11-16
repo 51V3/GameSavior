@@ -54,7 +54,7 @@ const Checkout = () => {
       const pdfBase64 = pdf.output('datauristring').split(',')[1];
 
       // Send confirmation email with PDF attachment
-      await axios.post("/.netlify/functions/sendEmail", {
+      await axios.post("/netlify/functions/sendEmail", {
         to: email,
         subject: "Your Tickets!",
         attachments: [
