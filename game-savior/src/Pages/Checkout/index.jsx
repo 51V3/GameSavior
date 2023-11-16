@@ -43,7 +43,7 @@ const Checkout = () => {
       // Wait for all delete operations to complete
       await Promise.all(deletePromises);
   
-      console.log("All delete operations completed successfully");
+      console.log("All delete operations completed successfully");g
 
       // Create a PDF document
       const pdf = new jsPDF();
