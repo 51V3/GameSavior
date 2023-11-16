@@ -11,5 +11,12 @@
   to = "/index.html"
   status = 200
 
+  [[redirects]]
+  from = "/netlify/functions/sendEmail"
+  to = "https://game-savior-backend.onrender.com/.netlify/functions/sendEmail"
+  status = 200
+  force = true
+  headers = { X-From = "Netlify" }
+
 [build]
   functions = "netlify/functions"
