@@ -14,7 +14,7 @@ export default function Cart() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('/.netlify/functions/proxy/ticket/1');
+        const response = await axios.get('/.netlify/functions/proxy/ticket');
         console.log("Response from backend:", response.data);
         dispatch({ type: "SET_CART", payload: response.data });
         setLoading(false);
@@ -31,7 +31,7 @@ export default function Cart() {
   const handleQuantityChange = async (index, newQuantity) => {
     try {
       // Send the update request
-      await axios.patch(`/.netlify/functions/proxy/ticket/${ticket.id}${cart[index].id}`, {
+      await axios.patch(`/.netlify/functions/proxy/ticket/${cart[index].id}`, {
         quantity: newQuantity,
       });
   
