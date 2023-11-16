@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import "./Checkout.css";
 import axios from "axios";
+import jsPDF from "jspdf";
 import { useCart } from "../../Components/CartContext";
 
 export default function Checkout() {
@@ -9,7 +10,7 @@ export default function Checkout() {
   const cart = location.state?.cart || [];
   const totalPrice = location.state?.totalPrice || 0;
   const navigate = useNavigate();
-  const { cart1, dispatch} = useCart();
+  const { cart1, dispatch } = useCart();
   const { id } = useParams();
 
   console.log("Cart in Checkout component:", cart);
@@ -18,18 +19,53 @@ export default function Checkout() {
   const [email, setEmail] = useState("");
   const [cellphone, setCellphone] = useState("");
 
-  const handleDeleteAll = async () => {
+  const handleDeleteAll = async (e) => {
+    e.preventDefault(); // Prevent default link behavior
+
     try {
-      for(const ticket of cart){
-        await axios.delete(`https://game-savior-backend.onrender.com/ticket/${ticket.id}`);
+      if (!name || !email || !cellphone) {
+        alert("Please fill in all required fields: Name, Email, and Phone Number");
+        return;
       }
+
+      // Create an array of promises for deleting tickets
+      const deletePromises = cart.map((ticket) =>
+        axios.delete(`https://game-savior-backend.onrender.com/ticket/${ticket.id}`)
+      );
+
+      // Wait for all delete operations to complete
+      await Promise.all(deletePromises);
+
+      // Create a PDF document
+      const pdf = new jsPDF();
+      pdf.text('Game Details:', 10, 10);
+      // Add more text or content to the PDF as needed
+
+      const pdfBase64 = pdf.output('datauristring').split(',')[1]; // Convert to base64
+
+      // Send confirmation email with PDF attachment
+      await axios.post("/.netlify/functions/sendEmail", {
+        to: email,
+        subject: "Your Tickets!",
+        attachments: [
+          {
+            content: pdfBase64,
+            filename: 'ticket.pdf',
+            type: 'application/pdf',
+            disposition: 'attachment',
+            encoding: 'base64',
+          },
+        ],
+        html: `<p>Thank you for your order! Here are your tickets.</p><p>See attached PDF for game details.</p>`,
+      });
+
+      // Clear cart and navigate to order placed page
       dispatch({ type: "SET_CART", payload: [] });
+      navigate("/orderplaced");
     } catch (error) {
-      console.error("Error deleting all items:", error);
-      // Handle error scenarios here, e.g., show an error message to the user
+      console.error("Error handling order:", error);
     }
   };
-
 
   return (
     <div className="checkout-container">
