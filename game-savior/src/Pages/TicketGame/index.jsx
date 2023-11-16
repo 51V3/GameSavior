@@ -22,6 +22,21 @@ const TicketGame = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    if (matches.length > 0) {
+      const formattedDatesArray = matches.map((match) => {
+        const dateObject = new Date(match.utcDate);
+        return `${(dateObject.getUTCDate()).toString().padStart(2, '0')}/${(dateObject.getUTCMonth() + 1).toString().padStart(2, '0')}/${dateObject.getUTCFullYear()}`;
+      });
+      setFormattedDate(formattedDatesArray);
+      const formattedHourArray = matches.map((match) => {
+        const hourObject = new Date(match.utcDate);
+        return `${hourObject.getUTCHours().toString().padStart(2, '0')}:${hourObject.getUTCMinutes().toString().padStart(2, '0')}`;
+      });
+      setFormattedHour(formattedHourArray);
+    }
+  }, [matches]);
+
 
   return (
     <div className="ticket-game">
@@ -29,16 +44,16 @@ const TicketGame = () => {
         <h2>Tickets</h2>
       </div>
       <div>
-        {matches.map((match) => (
+        {matches.map((match, index) => (
         
         <div className="match-container" key={match.id}>
           <div>
-            <img className="team-flag" src={match.competition.emblem} />
+            <img className="competition-flag" src={match.competition.emblem} />
           </div>
 
           <div className="competition-section">
             <p>{match.competition.name}</p>
-            <h3>{formattedDate}</h3>
+            <p>{formattedDate[index]}</p>
           </div>
 
           <div className="team-section">
@@ -47,7 +62,7 @@ const TicketGame = () => {
               <p>{match.homeTeam.name}</p>
             </div>
             <div>
-              <p> {formattedHour} </p>
+              <p>{formattedHour[index]}</p>
             </div>
             <div className="team-details">
               <img className="team-flag" src={match.awayTeam.crest} alt="Away Team Crest" />

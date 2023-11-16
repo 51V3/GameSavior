@@ -30,8 +30,9 @@ html, body {
     background-color: white;
     color: black;
     margin: 80px;
-    align-items: center;
     font-size: 18px;
+    align-items: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .team-section {
@@ -54,4 +55,8 @@ html, body {
     padding-left: 15px;
     padding-right: 15px;
     font-size: 16px;
+}
+
+.competition-flag {
+    width: 130px;
 }
