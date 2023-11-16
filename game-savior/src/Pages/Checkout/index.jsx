@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import jsPDF from "jspdf";
 import { useCart } from "../../Components/CartContext";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Checkout = () => {
   const location = useLocation();
