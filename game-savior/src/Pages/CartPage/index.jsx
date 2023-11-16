@@ -31,7 +31,7 @@ export default function Cart() {
   const handleQuantityChange = async (index, newQuantity) => {
     try {
       // Send the update request
-      await axios.patch(`/.netlify/functions/proxy/ticket/1/ticket/${cart[index].id}`, {
+      await axios.patch(`/.netlify/functions/proxy/ticket/${ticket.id}${cart[index].id}`, {
         quantity: newQuantity,
       });
   
@@ -60,7 +60,7 @@ export default function Cart() {
 
   const handleDelete = async (index) => {
     try {
-      await axios.delete(`/.netlify/functions/proxy/ticket/1/ticket/${cart[index].id}`);
+      await axios.delete(`/.netlify/functions/proxy/ticket/${cart[index].id}`);
       const updatedCart = [...cart.slice(0, index), ...cart.slice(index + 1)];
       dispatch({ type: "SET_CART", payload: updatedCart });
     } catch (error) {
@@ -72,7 +72,7 @@ export default function Cart() {
   const handleDeleteAll = async () => {
     try {
       for(const ticket of cart){
-        await axios.delete(`/.netlify/functions/proxy/ticket/1/ticket/${ticket.id}`);
+        await axios.delete(`/.netlify/functions/proxy/ticket/${ticket.id}`);
       }
       dispatch({ type: "SET_CART", payload: [] });
     } catch (error) {
