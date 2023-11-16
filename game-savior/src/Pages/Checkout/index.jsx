@@ -41,7 +41,7 @@ const Checkout = () => {
   
   const handleEmailConfirmation = async (email, pdfBase64) => {
     try {
-      const response = await fetch("/netlify/functions/sendEmail", {
+      const response = await fetch("/.netlify/functions/sendEmail", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ const Checkout = () => {
           html: `<p>Thank you for your order! Here are your tickets.</p><p>See attached PDF for game details.</p>`,
         }),
       });
-  
+       
       if (!response.ok) {
         throw new Error(`Email request failed with status: ${response.status}`);
       }

@@ -18,5 +18,11 @@
   force = true
   headers = { X-From = "Netlify" }
 
+  [[redirects]]
+  from = "/netlify/functions/sendEmail"
+  to = "/.netlify/functions/sendEmail"
+  status = 200
+
+
 [build]
   functions = "netlify/functions"
