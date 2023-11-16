@@ -4,57 +4,30 @@ import axios from "axios";
 import jsPDF from "jspdf";
 import { useCart } from "../../Components/CartContext";
 
-const Checkout = () => {
-  const location = useLocation();
-  const cart = location.state?.cart || [];
-  const totalPrice = location.state?.totalPrice || 0;
-  const navigate = useNavigate();
-  const { dispatch } = useCart();
+const handleDeleteAll = async (e) => {
+  e.preventDefault();
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [cellphone, setCellphone] = useState("");
+  try {
+    if (!name || !email || !cellphone) {
+      alert("Please fill in all required fields: Name, Email, and Phone Number");
+      return;
+    }
 
-  const handleDeleteAll = async (e) => {
-    e.preventDefault();
+    // Create a PDF document
+    const pdf = new jsPDF();
+    pdf.text('Game Details:', 10, 10);
+    // Add more text or content to the PDF as needed
 
-    try {
-      if (!name || !email || !cellphone) {
-        alert("Please fill in all required fields: Name, Email, and Phone Number");
-        return;
-      }
-  
-      // Create an array of promises for deleting tickets
-/*     const deletePromises = cart.map((ticket) => {
-        const deleteUrl = `https://game-savior-backend.onrender.com/ticket/${ticket.id}`;
-        console.log("Deleting ticket at URL:", deleteUrl);
-  
-        return axios.delete(deleteUrl)
-          .then((response) => {
-            console.log("Delete response:", response.data);
-            return response;
-          })
-          .catch((error) => {
-            console.error("Delete error:", error);
-            throw error; // Rethrow the error to be caught later
-          });
-      });
-  
-      // Wait for all delete operations to complete
-      await Promise.all(deletePromises);
-  
-      console.log("All delete operations completed successfully");g
-    */
-      // Create a PDF document
-      const pdf = new jsPDF();
-      pdf.text('Game Details:', 10, 10);
-      // Add more text or content to the PDF as needed
+    // Convert PDF to base64
+    const pdfBase64 = pdf.output('datauristring').split(',')[1];
 
-      // Convert PDF to base64
-      const pdfBase64 = pdf.output('datauristring').split(',')[1];
-
-      // Send confirmation email with PDF attachment
-      await axios.post("/netlify/functions/sendEmail", {
+    // Send confirmation email with PDF attachment
+    const emailResponse = await fetch("/.netlify/functions/sendEmail", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
         to: email,
         subject: "Your Tickets!",
         attachments: [
@@ -67,15 +40,19 @@ const Checkout = () => {
           },
         ],
         html: `<p>Thank you for your order! Here are your tickets.</p><p>See attached PDF for game details.</p>`,
-      });
+      }),
+    });
 
-      // Clear cart and navigate to order placed page
-      dispatch({ type: "SET_CART", payload: [] });
-      navigate("/orderplaced");
-    } catch (error) {
-      console.error("Error handling order:", error);
+    if (!emailResponse.ok) {
+      throw new Error(`Email request failed with status: ${emailResponse.status}`);
     }
-  };
+
+    // Clear cart and navigate to order placed page
+    dispatch({ type: "SET_CART", payload: [] });
+    navigate("/orderplaced");
+  } catch (error) {
+    console.error("Error handling order:", error);
+  }
 
   return (
     <div className="checkout-container">
