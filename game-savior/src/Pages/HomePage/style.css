@@ -16,7 +16,11 @@ html, body {
 
 .sports-container {
     background-color: white;
-    margin: 80px;
+    margin-left: 80px;
+    margin-right: 80px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+
 }
 
 .btn-container {
@@ -85,14 +89,13 @@ html, body {
 .container-title{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: rgb(150, 150, 150);
-    font-size: 35px;
-    margin-top: 50px;
+    margin-top: 10px;
 }
 
 .events-title {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: rgb(150, 150, 150);
-    font-size: 35px;
+    margin-top: 10px;
 }
 
 .each-sport-container {
@@ -108,6 +111,11 @@ html, body {
 
 .next-game-container {
     background-color: white;
-    margin: 80px;
+    margin-left: 80px;
+    margin-right: 80px;
+    margin-top: 40px;
+    margin-bottom: 4px;
+    font-size: 18px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
