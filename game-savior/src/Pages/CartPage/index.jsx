@@ -71,15 +71,18 @@ export default function Cart() {
 
   const handleDeleteAll = async () => {
     try {
-      for(const ticket of cart){
+      for (const ticket of cart) {
         await axios.delete(`https://game-savior-backend.onrender.com/ticket/${ticket.id}`);
       }
       dispatch({ type: "SET_CART", payload: [] });
     } catch (error) {
       console.error("Error deleting all items:", error);
+      // Log more details about the error
+      console.log("Error details:", error.response?.data);
       // Handle error scenarios here, e.g., show an error message to the user
     }
-  };
+  };  
+  
 
   const handleCheckout = () => {
     // Navigate to the checkout page with the total price in the state
