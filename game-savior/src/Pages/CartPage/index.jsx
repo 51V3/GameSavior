@@ -15,7 +15,7 @@ export default function Cart() {
     const fetchData = async () => {
       try {
         const response = await axios.get('https://game-savior-backend.onrender.com/ticket');
-        console.log("Response from backend:", response.data);  // Log the response
+        console.log("Response from backend:", response.data);
         dispatch({ type: "SET_CART", payload: response.data });
         setLoading(false);
       } catch (error) {
@@ -24,9 +24,9 @@ export default function Cart() {
         setLoading(false);
       }
     };
-
+  
     fetchData();
-  }, [dispatch]);
+  }, [dispatch]);  
 
   const handleQuantityChange = async (index, newQuantity) => {
     try {

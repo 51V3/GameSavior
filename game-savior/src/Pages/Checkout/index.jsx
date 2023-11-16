@@ -23,9 +23,27 @@ const Checkout = () => {
         alert("Please fill in all required fields: Name, Email, and Phone Number");
         return;
       }
-
-      // Delete tickets
-      await Promise.all(cart.map((ticket) => axios.delete(`https://game-savior-backend.onrender.com/ticket/${ticket.id}`)));
+  
+      // Create an array of promises for deleting tickets
+      const deletePromises = cart.map((ticket) => {
+        const deleteUrl = `https://game-savior-backend.onrender.com/ticket/${ticket.id}`;
+        console.log("Deleting ticket at URL:", deleteUrl);
+  
+        return axios.delete(deleteUrl)
+          .then((response) => {
+            console.log("Delete response:", response.data);
+            return response;
+          })
+          .catch((error) => {
+            console.error("Delete error:", error);
+            throw error; // Rethrow the error to be caught later
+          });
+      });
+  
+      // Wait for all delete operations to complete
+      await Promise.all(deletePromises);
+  
+      console.log("All delete operations completed successfully");
 
       // Create a PDF document
       const pdf = new jsPDF();
