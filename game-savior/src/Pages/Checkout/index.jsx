@@ -17,15 +17,27 @@ const Checkout = () => {
 
   const handleDeleteAll = async () => {
     try {
-      for (const ticket of cart) {
+      const deletePromises = cart.map(async (ticket) => {
         const deleteUrl = `https://game-savior-backend.onrender.com/ticket/${ticket.id}`;
-        await fetch(deleteUrl, { method: 'DELETE' });
-      }
+        const response = await fetch(deleteUrl, { method: 'DELETE' });
+  
+        if (!response.ok) {
+          throw new Error(`Failed to delete ticket ${ticket.id}. Status: ${response.status}`);
+        }
+  
+        return response;
+      });
+  
+      // Wait for all delete operations to complete
+      await Promise.all(deletePromises);
+  
+      // Clear cart
       dispatch({ type: "SET_CART", payload: [] });
     } catch (error) {
       console.error("Error deleting all items:", error);
     }
   };
+  
   
   const handleEmailConfirmation = async (email, pdfBase64) => {
     try {
@@ -59,6 +71,11 @@ const Checkout = () => {
       console.error("Error handling order:", error);
     }
   };  
+
+  function handleButtonClick(){
+    handleDeleteAll();
+    handleEmailConfirmation();
+  }
 
   return (
     <div className="checkout-container">
@@ -106,7 +123,7 @@ const Checkout = () => {
         <p className="total-amount">${totalPrice}</p>
       </div>
       <div className="button-container">
-        <button className="place-order-button" onClick={handleDeleteAll}>
+        <button className="place-order-button" onClick= {handleButtonClick}>
           Place Order
         </button>
         <Link to="/cart" className="back-to-cart-link">
