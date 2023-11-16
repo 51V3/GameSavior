@@ -7,6 +7,7 @@ import TicketGame from './Pages/TicketGame'
 import Cart from './Pages/CartPage'
 import SingleTicket from './Pages/SingleTicket'
 import OrderPage from './Pages/OrderPage'
+import ComingSoonPage from './Pages/ComingSoonPage'
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path={"/cart"} element={<Cart />} />
         <Route path={"/checkout"} element={<Checkout />} />
         <Route path={"/orderplaced"} element={<OrderPage />} />
+        <Route path={"/coming-soon"} element={<ComingSoonPage />} />
       </Routes>
     </div>
   )
