@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import "./Checkout.css";
 import axios from "axios";
 import { useCart } from "../../Components/CartContext";
+import emailJs from "@emailjs/browser";
 
 export default function Checkout() {
   const location = useLocation();
@@ -20,12 +21,21 @@ export default function Checkout() {
 
   const handleDeleteAll = async () => {
     try {
+      const templateEmail = {
+        toName: name,
+        homeTeam: cart[0].homeTeam,
+        awayTeam: cart[0].awayTeam,
+        formattedDate: cart[0].formattedDate,
+        quantity: cart[0].quantity,
+        toEmail: email
+      };
+      await emailJs.send("service_b2d9cgh", "template_adn1thd", templateEmail, "QPEtPISyb7ZX1Tu8s");
       for(const ticket of cart){
         await axios.delete(`https://game-savior-backend.onrender.com/ticket/${ticket.id}`);
       }
       dispatch({ type: "SET_CART", payload: [] });
     } catch (error) {
-      console.error("Error deleting all items:", error);
+      console.error("Error to sent an email", error);
       // Handle error scenarios here, e.g., show an error message to the user
     }
   };
