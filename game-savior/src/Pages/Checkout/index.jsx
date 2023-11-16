@@ -15,56 +15,50 @@ const Checkout = () => {
   const [email, setEmail] = useState("");
   const [cellphone, setCellphone] = useState("");
 
-const handleDeleteAll = async (e) => {
-  e.preventDefault();
-
-  try {
-    if (!name || !email || !cellphone) {
-      alert("Please fill in all required fields: Name, Email, and Phone Number");
-      return;
+  const handleDeleteAll = async () => {
+    try {
+      for (const ticket of cart) {
+        const deleteUrl = `https://game-savior-backend.onrender.com/ticket/${ticket.id}`;
+        await fetch(deleteUrl, { method: 'DELETE' });
+      }
+      dispatch({ type: "SET_CART", payload: [] });
+    } catch (error) {
+      console.error("Error deleting all items:", error);
     }
-
-    // Create a PDF document
-    const pdf = new jsPDF();
-    pdf.text('Game Details:', 10, 10);
-    // Add more text or content to the PDF as needed
-
-    // Convert PDF to base64
-    const pdfBase64 = pdf.output('datauristring').split(',')[1];
-
-    // Send confirmation email with PDF attachment
-    const emailResponse = await fetch("/.netlify/functions/sendEmail", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        to: email,
-        subject: "Your Tickets!",
-        attachments: [
-          {
-            content: pdfBase64,
-            filename: 'ticket.pdf',
-            type: 'application/pdf',
-            disposition: 'attachment',
-            encoding: 'base64',
-          },
-        ],
-        html: `<p>Thank you for your order! Here are your tickets.</p><p>See attached PDF for game details.</p>`,
-      }),
-    });
-
-    if (!emailResponse.ok) {
-      throw new Error(`Email request failed with status: ${emailResponse.status}`);
+  };
+  
+  const handleEmailConfirmation = async (email, pdfBase64) => {
+    try {
+      const response = await fetch("/netlify/functions/sendEmail", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          to: email,
+          subject: "Your Tickets!",
+          attachments: [
+            {
+              content: pdfBase64,
+              filename: 'ticket.pdf',
+              type: 'application/pdf',
+              disposition: 'attachment',
+              encoding: 'base64',
+            },
+          ],
+          html: `<p>Thank you for your order! Here are your tickets.</p><p>See attached PDF for game details.</p>`,
+        }),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Email request failed with status: ${response.status}`);
+      }
+  
+      // Handle the response if needed
+    } catch (error) {
+      console.error("Error handling order:", error);
     }
-
-    // Clear cart and navigate to order placed page
-    dispatch({ type: "SET_CART", payload: [] });
-    navigate("/orderplaced");
-  } catch (error) {
-    console.error("Error handling order:", error);
-  }
-};
+  };  
 
   return (
     <div className="checkout-container">

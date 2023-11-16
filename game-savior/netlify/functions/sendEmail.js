@@ -45,7 +45,7 @@ exports.handler = async function (event, context) {
   try {
     const response = await request;
     console.log(response.body);
-    
+
     return {
       statusCode: 200,
       body: JSON.stringify({ message: 'Email sent successfully' }),
