@@ -99,8 +99,8 @@ export default function SingleTicket() {
           </div>
           <div className="ticket-container">
             <p>Tickets: {ticketCount}</p>
-            <button onClick={handleIncrement}>+</button>
             <button onClick={handleDecrement}>-</button>
+            <button onClick={handleIncrement}>+</button>
             <div className="add-button">
               <button onClick={handleAddToCart}>Add to Cart</button>
               {isAddedToCart && <p>Tickets added to cart!</p>}

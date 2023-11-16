@@ -76,14 +76,18 @@ export default function Checkout() {
         <p className="total-text">Total:</p>
         <p className="total-amount">${totalPrice}</p>
       </div>
+      <div className="button-container">
         <Link to="/orderplaced">
-        <button className="place-order-button" onClick={handleDeleteAll}>
-          Place Order
-        </button>
+          <button className="place-order-button" onClick={handleDeleteAll}>
+            Place Order
+          </button>
         </Link>
-      <Link to="/cart" className="back-to-cart-link">
-        Back to Cart
-      </Link>
+        <Link to="/cart" className="back-to-cart-link">
+          <button className="back-to-cart-button">
+            Back to Cart
+          </button>
+        </Link>
+      </div>
     </div>
   );
 }
