@@ -25,7 +25,7 @@ const Checkout = () => {
       }
   
       // Create an array of promises for deleting tickets
-      const deletePromises = cart.map((ticket) => {
+/*     const deletePromises = cart.map((ticket) => {
         const deleteUrl = `https://game-savior-backend.onrender.com/ticket/${ticket.id}`;
         console.log("Deleting ticket at URL:", deleteUrl);
   
@@ -44,7 +44,7 @@ const Checkout = () => {
       await Promise.all(deletePromises);
   
       console.log("All delete operations completed successfully");g
-
+    */
       // Create a PDF document
       const pdf = new jsPDF();
       pdf.text('Game Details:', 10, 10);
