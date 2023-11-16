@@ -1,10 +1,8 @@
-const mailjet = require('node-mailjet');
-const jsPDF = require('jspdf');
-
-const mailjetClient = mailjet.createCliente(
-  apiKey = process.env.MJ_APIKEY_PUBLIC, // Mailjet API key public
-  apiSecret = process.env.MJ_APIKEY_PRIVATE, // Mailjet API key private
+const mailjet = require('node-mailjet').connect(
+  process.env.MJ_APIKEY_PUBLIC, // Mailjet API key public
+  process.env.MJ_APIKEY_PRIVATE, // Mailjet API key private
 );
+const jsPDF = require('jspdf');
 
 exports.handler = async function (event, context) {
   const { to, subject } = JSON.parse(event.body);
