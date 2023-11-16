@@ -51,7 +51,7 @@ export default function Cart() {
   };
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <img src="https://www.gifcen.com/wp-content/uploads/2021/01/rolling-football-ball-gif.gif"/>;
   }
 
   if (error) {
