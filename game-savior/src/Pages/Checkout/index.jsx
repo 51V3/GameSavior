@@ -1,26 +1,22 @@
 import React, { useState } from "react";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import "./Checkout.css";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import jsPDF from "jspdf";
 import { useCart } from "../../Components/CartContext";
 
-export default function Checkout() {
+const Checkout = () => {
   const location = useLocation();
   const cart = location.state?.cart || [];
   const totalPrice = location.state?.totalPrice || 0;
   const navigate = useNavigate();
-  const { cart1, dispatch } = useCart();
-  const { id } = useParams();
-
-  console.log("Cart in Checkout component:", cart);
+  const { dispatch } = useCart();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [cellphone, setCellphone] = useState("");
 
   const handleDeleteAll = async (e) => {
-    e.preventDefault(); // Prevent default link behavior
+    e.preventDefault();
 
     try {
       if (!name || !email || !cellphone) {
@@ -28,20 +24,16 @@ export default function Checkout() {
         return;
       }
 
-      // Create an array of promises for deleting tickets
-      const deletePromises = cart.map((ticket) =>
-        axios.delete(`https://game-savior-backend.onrender.com/ticket/${ticket.id}`)
-      );
-
-      // Wait for all delete operations to complete
-      await Promise.all(deletePromises);
+      // Delete tickets
+      await Promise.all(cart.map((ticket) => axios.delete(`https://game-savior-backend.onrender.com/ticket/${ticket.id}`)));
 
       // Create a PDF document
       const pdf = new jsPDF();
       pdf.text('Game Details:', 10, 10);
       // Add more text or content to the PDF as needed
 
-      const pdfBase64 = pdf.output('datauristring').split(',')[1]; // Convert to base64
+      // Convert PDF to base64
+      const pdfBase64 = pdf.output('datauristring').split(',')[1];
 
       // Send confirmation email with PDF attachment
       await axios.post("/.netlify/functions/sendEmail", {
@@ -113,11 +105,9 @@ export default function Checkout() {
         <p className="total-amount">${totalPrice}</p>
       </div>
       <div className="button-container">
-        <Link to="/orderplaced">
-          <button className="place-order-button" onClick={handleDeleteAll}>
-            Place Order
-          </button>
-        </Link>
+        <button className="place-order-button" onClick={handleDeleteAll}>
+          Place Order
+        </button>
         <Link to="/cart" className="back-to-cart-link">
           <button className="back-to-cart-button">
             Back to Cart
@@ -126,4 +116,6 @@ export default function Checkout() {
       </div>
     </div>
   );
-}
+};
+
+export default Checkout;
