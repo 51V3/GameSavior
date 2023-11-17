@@ -14,7 +14,8 @@ export default function NavBar() {
     <div className="navbar">
       <div className="left-section">
         <Link to="/" className="link">
-            <img src={logo} alt="Logo" className="logo" />        </Link>
+          <img src={logo} alt="Logo" className="logo" />
+        </Link>
       </div>
 
       <div className="right-section">
