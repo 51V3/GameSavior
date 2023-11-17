@@ -51,7 +51,7 @@ html, body {
     color: rgb( 248, 247, 247);
     background-color: transparent;
     border-radius: 5px;
-    font-family: 'Arial', sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .main-photo img {
@@ -90,12 +90,14 @@ html, body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: rgb(150, 150, 150);
     margin-top: 10px;
+    font-size: 20px;
 }
 
 .events-title {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: rgb(150, 150, 150);
     margin-top: 10px;
+    font-size: 20px;
 }
 
 .each-sport-container {

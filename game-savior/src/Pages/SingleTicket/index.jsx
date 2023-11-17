@@ -71,7 +71,7 @@ export default function SingleTicket() {
   
 
   return (
-    <div>
+    <div className="page-container">
       <h2 className="page-title">Game Details</h2>
       {matches !== null ? (
         <div className="competition">
@@ -108,7 +108,7 @@ export default function SingleTicket() {
           </div>
           <div className="match-link">
               <Link to={"/match"}>
-                <button>
+                <button className="back-button">
                   Back
                 </button>
               </Link>
