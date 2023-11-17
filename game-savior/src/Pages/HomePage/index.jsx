@@ -10,7 +10,6 @@ export default function HomePage(){
     const [formattedDate, setFormattedDate] = useState("");
     const [formattedHour, setFormattedHour] = useState("");
 
-  // Assuming your API data is fetched in a useEffect or another lifecycle method
     useEffect(() => {
     const fetchData = async () => {
       try {
@@ -23,11 +22,9 @@ export default function HomePage(){
         );
   
         if (nextGameFound) {
-          // Format date
           const dateOptions = { day: "2-digit", month: "2-digit", year: "numeric" };
           const formattedDate = new Date(nextGameFound.utcDate).toLocaleDateString("en-GB", dateOptions);
   
-          // Format time
           const timeOptions = { hour: "2-digit", minute: "2-digit", hour12: false };
           const formattedHour = new Date(nextGameFound.utcDate).toLocaleTimeString("en-GB", timeOptions);
   

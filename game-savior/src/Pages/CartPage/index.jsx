@@ -15,7 +15,7 @@ export default function Cart() {
     const fetchData = async () => {
       try {
         const response = await axios.get('https://game-savior-backend.onrender.com/ticket');
-        console.log("Response from backend:", response.data);  // Log the response
+        console.log("Response from backend:", response.data);
         dispatch({ type: "SET_CART", payload: response.data });
         setLoading(false);
       } catch (error) {
@@ -30,19 +30,17 @@ export default function Cart() {
 
   const handleQuantityChange = async (index, newQuantity) => {
     try {
-      // Send the update request
       await axios.patch(`https://game-savior-backend.onrender.com/ticket/${cart[index].id}`, {
         quantity: newQuantity,
       });
   
-      // Update the local state with the new quantity
       const updatedCart = cart.map((ticket, i) =>
         i === index ? { ...ticket, quantity: newQuantity } : ticket
       );
       dispatch({ type: "SET_CART", payload: updatedCart });
     } catch (error) {
       console.error("Error updating quantity:", error);
-      console.error("Axios error details:", error.response); // Log the Axios error details
+      console.error("Axios error details:", error.response); 
     }
   };  
 
@@ -65,33 +63,25 @@ export default function Cart() {
       dispatch({ type: "SET_CART", payload: updatedCart });
     } catch (error) {
       console.error("Error deleting item:", error);
-      // Handle error scenarios here, e.g., show an error message to the user
     }
   };
 
   const handleDeleteAll = async () => {
     try {
-      // Create an array of promises for each deletion request
       const deletePromises = cart.map((ticket) =>
         axios.delete(`https://game-savior-backend.onrender.com/ticket/${ticket.id}`)
       );
   
-      // Wait for all deletion requests to complete
       await Promise.all(deletePromises);
   
-      // After all deletions are successful, update the local state
       dispatch({ type: "SET_CART", payload: [] });
     } catch (error) {
       console.error("Error deleting all items:", error);
       console.log("Error details:", error.response?.data);
-      // Handle error scenarios here, e.g., show an error message to the user
     }
   };
   
-  
-
   const handleCheckout = () => {
-    // Navigate to the checkout page with the total price in the state
     navigate("/checkout", { state: { cart: cart, totalPrice: calculateTotalPrice() } });
   };
 

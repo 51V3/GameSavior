@@ -8,7 +8,6 @@ import { useCart } from "../../Components/CartContext";
 export default function NavBar() {
   const { cart } = useCart() || {};
 
-  // Calculate the total number of tickets in the cart
   const totalTickets = cart.reduce((total, ticket) => total + ticket.quantity, 0);
 
   return (

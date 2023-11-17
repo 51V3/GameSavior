@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import "./Checkout.css";
-import axios from "axios";
+import { useState } from "react";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useCart } from "../../Components/CartContext";
+import axios from "axios";
 import emailJs from "@emailjs/browser";
 
 export default function Checkout() {
@@ -36,7 +36,6 @@ export default function Checkout() {
       dispatch({ type: "SET_CART", payload: [] });
     } catch (error) {
       console.error("Error to sent an email", error);
-      // Handle error scenarios here, e.g., show an error message to the user
     }
   };
 

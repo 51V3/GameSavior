@@ -1,6 +1,6 @@
 import "./index.css";
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useCart } from "../../Components/CartContext";
 
@@ -9,7 +9,6 @@ export default function SingleTicket() {
   const { id } = useParams();
   const [formattedDate, setFormattedDate] = useState('');
   const [ticketCount, setTicketCount] = useState(1);
-  const { cart, dispatch } = useCart() || {};
   const [isAddedToCart, setIsAddedToCart] = useState(false);
 
   useEffect(() => {
@@ -56,20 +55,14 @@ export default function SingleTicket() {
     };
 
     try {
-      // Send a POST request to the server
       await axios.post('https://game-savior-backend.onrender.com/ticket', ticket);
-
-      // Update state to show the "Added to Cart" message
       setIsAddedToCart(true);
 
-      // Optionally, you can navigate the user or perform other actions upon successful submission
-      // navigate('/success'); // Replace '/success' with the desired route
     } catch (error) {
       console.error("Error posting ticket:", error);
     }
   }
   
-
   return (
     <div className="page-container">
       <h2 className="page-title">Game Details</h2>
