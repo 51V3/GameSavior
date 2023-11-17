@@ -71,17 +71,23 @@ export default function Cart() {
 
   const handleDeleteAll = async () => {
     try {
-      for (const ticket of cart) {
-        await axios.delete(`https://game-savior-backend.onrender.com/ticket/${ticket.id}`);
-      }
+      // Create an array of promises for each deletion request
+      const deletePromises = cart.map((ticket) =>
+        axios.delete(`https://game-savior-backend.onrender.com/ticket/${ticket.id}`)
+      );
+  
+      // Wait for all deletion requests to complete
+      await Promise.all(deletePromises);
+  
+      // After all deletions are successful, update the local state
       dispatch({ type: "SET_CART", payload: [] });
     } catch (error) {
       console.error("Error deleting all items:", error);
-      // Log more details about the error
       console.log("Error details:", error.response?.data);
       // Handle error scenarios here, e.g., show an error message to the user
     }
-  };  
+  };
+  
   
 
   const handleCheckout = () => {
